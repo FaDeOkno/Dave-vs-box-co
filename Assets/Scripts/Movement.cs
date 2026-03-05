@@ -14,18 +14,15 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float JumpForce;
     private Vector2 moveInput;
-    //Below is for pumpkin destroying
-    private bool EPressed;
-    public float PumpkinsDestroyed = 0;
-    [SerializeField] private TextMeshProUGUI PumpkinText;
-    [SerializeField] private AudioSource Sfx;
-    [SerializeField] private AudioClip Ding;
-    //For cutscenes
     public bool CanMove = true;
+    public float distance = 90.0f;
 
     //Below is for Player Animation
     Animator anim;
     private Vector2 lastMoveDirection;
+    private Vector3 lookdirection;
+    public LayerMask ropeLayerMask;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,40 +54,27 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void PushObjects()
+    {
+        
+    }
+
+    public void MagnetMovement()
+    {
+        lookdirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, distance, ropeLayerMask);
+
+        Vector2 MoveDir = hit.point;
+
+        rb.MovePosition(MoveDir);
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (EPressed)
-        {
-            if (collision.gameObject.CompareTag("Pumpkin"))
-            {
-                Destroy(collision.gameObject);
-                PumpkinsDestroyed++;
-
-                if (PumpkinsDestroyed == 6)
-                {
-                    //doorunlock.UnlockDoor();
-                    Sfx.PlayOneShot(Ding, 0.7f);
-                }
-
-            }
-        }
-    }
-
-    public void Pickup()
-    {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            EPressed = true;
-        }
-        else
-        {
-            EPressed = false;
-        }
-    }
+    
 
     void ProcessInputs()
     {
