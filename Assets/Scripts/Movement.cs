@@ -25,6 +25,17 @@ public class Movement : MonoBehaviour
     private Vector3 lookdirection;
     public LayerMask ropeLayerMask;
     public float distance = 90.0f;
+    float horizontalmove;
+
+    public Magnet magnet;
+
+    public float MagnetDuration;
+
+    [Header("Dash Stuff")]
+    [SerializeField] private float dashforce = 25f;
+    [SerializeField] private int dashcounter = 0;
+    [SerializeField] private float dashtime = 0.2f;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,11 +65,43 @@ public class Movement : MonoBehaviour
         {
             moveInput = context.ReadValue<Vector2>();
         }
+
+        horizontalmove = UnityEngine.Input.GetAxisRaw("Horizontal");
+    }
+
+    public void Pull()
+    {
+        StartCoroutine(PullTimer());
+    }
+
+    private IEnumerator PullTimer(){
+        magnet.isActive = true;
+        Debug.Log("Pulling");
+        yield return new WaitForSeconds(MagnetDuration);
+        magnet.isActive = false;
+        Debug.Log("Stopped Pulling");
+        StopCoroutine(PullTimer());
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+    }
+
+    public void Dash()
+    {
+         dashcounter++;
+         CanMove = false;
+         rb.constraints |= RigidbodyConstraints2D.FreezePositionY;
+         Vector2 dashDirection = new Vector2(moveInput.x * dashforce, 0);
+         rb.linearVelocity = dashDirection;
+         Invoke("EndDash",dashtime); 
+    }
+
+    private void EndDash()
+    {
+        rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        CanMove = true;
     }
 
         public void MagnetMovement()

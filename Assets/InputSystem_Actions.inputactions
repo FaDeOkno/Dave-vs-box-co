@@ -34,9 +34,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Magnet Pull",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "f618e584-50c7-40d4-a470-ada9622e18ea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pull Object",
+                    "type": "Button",
+                    "id": "f8940e30-62ca-46a2-b7fb-a14a2c66d74e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -234,11 +243,22 @@
                 {
                     "name": "",
                     "id": "6d587f7f-3c33-42fc-bc31-55d229feee40",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Magnet Pull",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da537a66-0b5a-4364-afaa-c67516963003",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pull Object",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
