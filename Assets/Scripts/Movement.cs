@@ -33,6 +33,7 @@ public class Movement : MonoBehaviour
 
     public PointEffector2D pushPoint;
     public float pushduration;
+    public SwitchGravity switchGravity;
 
     [Header("Dash Stuff")]
     [SerializeField] private float dashforce = 25f;
@@ -101,9 +102,19 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        if(switchGravity.OnCeiling == true)
+        {
+            rb.AddForce(Vector2.down * JumpForce, ForceMode2D.Impulse);
+        }
+        if(switchGravity.OnCeiling == false)
+        {
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        }
     }
-
+    public void SwitchOrientation()
+    {
+        switchGravity.isButPressed = true;
+    }
     public void Dash()
     {
          dashcounter++;
