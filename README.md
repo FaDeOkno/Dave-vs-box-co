@@ -7,14 +7,14 @@ ALSO, if you are here to place files, please place them into the "ADD YOUR STUFF
 
 
 Goals:
--[x] Basic movement
--[x] Magnet Pull
--[x] Magnet Push
--[ ] Wall Climbing
--[ ] Half life 2 gravity gun
--[ ] Create tutorial area
--[ ] Make other areas
--[ ] make the bosses 
--[ ] make the cutscenes
--[ ] Refine gameplay
--[ ] Done maybe??
+- [x] Basic movement
+- [x] Magnet Pull
+- [x] Magnet Push
+- [ ] Wall Climbing
+- [ ] Half life 2 gravity gun
+- [ ] Create tutorial area
+- [ ] Make other areas
+- [ ] make the bosses 
+- [ ] make the cutscenes
+- [ ] Refine gameplay
+- [ ] Done maybe??
