@@ -511,7 +511,7 @@ MonoBehaviour:
   wallCheck: 0
   wallLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!50 &633194354
 Rigidbody2D:
   serializedVersion: 5

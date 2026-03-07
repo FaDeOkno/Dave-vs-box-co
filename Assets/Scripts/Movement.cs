@@ -76,7 +76,33 @@ public class Movement : MonoBehaviour
             Flip();
         }
 
-        //aPumpkinText.text = $"Pumpkins: {PumpkinsDestroyed}";
+        //Wall Sliding
+        if (!isGrounded)
+        {
+            wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
+
+            if (moveInput.x > 0.1f || moveInput.x < 0.1f)
+            {
+                if(wallCheck)
+                {
+                    HandleWallSliding();
+                }
+            }
+        }
+
+        if(wallCheck == false || isGrounded)
+        {
+            wallSliding = false;
+        }
+    }
+
+    private void HandleWallSliding()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -0.7f);
+
+        wallSliding = true;
+
+
     }
 
     private void FixedUpdate()
@@ -126,8 +152,20 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-       if(isGrounded) {
+       if(isGrounded && !wallSliding) {
             rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse); 
+       }
+
+        if (wallSliding)
+        {
+            if (m_FacingRight)
+            {
+                rb.AddForce(new Vector2(-2, 5) * JumpForce, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(new Vector2(2, 5) * JumpForce, ForceMode2D.Impulse);
+            }
         }
     }
     private void Flip()
@@ -189,11 +227,18 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        isGrounded = true;
+        if (collision.gameObject.layer != 8)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
-        {
-            isGrounded = false;
+    {
+      isGrounded = false;
     }
 }
