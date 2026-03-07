@@ -38,11 +38,20 @@ public class Movement : MonoBehaviour
 
     public GameObject player;
 
+    private bool isGrounded;
+    public float GroundRaycastNum;
+
     [Header("Dash Stuff")]
     [SerializeField] private float dashforce = 25f;
     [SerializeField] private int dashcounter = 0;
     [SerializeField] private float dashtime = 0.2f;
-    
+
+    [Header("Wall Sliding")]
+    public bool wallSliding;
+    public Transform wallCheckPoint;
+    public bool wallCheck;
+    public LayerMask wallLayerMask;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,6 +78,18 @@ public class Movement : MonoBehaviour
         //aPumpkinText.text = $"Pumpkins: {PumpkinsDestroyed}";
 
 
+        //GroundCheck
+        RaycastHit2D GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, 1 << 8);
+        Debug.DrawRay(transform.position, Vector2.down, Color.red);
+
+        if (GroundCheck.collider != null)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     private void FixedUpdate()
@@ -76,6 +97,7 @@ public class Movement : MonoBehaviour
         Vector2 velocity = rb.linearVelocity;
         Vector2 movevelocity = new Vector2(moveInput.x * moveSpeed, velocity.y);
         rb.linearVelocity = movevelocity;
+
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -117,13 +139,8 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(switchGravity.OnCeiling == true)
-        {
-            rb.AddForce(Vector2.down * JumpForce, ForceMode2D.Impulse);
-        }
-        if(switchGravity.OnCeiling == false)
-        {
-            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+       if(isGrounded) {
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse); 
         }
     }
     private void Flip()
@@ -138,7 +155,7 @@ public class Movement : MonoBehaviour
     }
     public void SwitchOrientation()
     {
-        switchGravity.isButPressed = true;
+
     }
     public void Dash()
     {
@@ -156,7 +173,7 @@ public class Movement : MonoBehaviour
         CanMove = true;
     }
 
-        public void MagnetMovement()
+    public void MagnetMovement()
     {
         lookdirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
