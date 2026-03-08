@@ -11,9 +11,9 @@ public class Movement : MonoBehaviour
     //[SerializeField] private DoorUnlock doorunlock;
     //Below is for movement
     [SerializeField] private float moveSpeed = 5f;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     [SerializeField] private float JumpForce;
-    private Vector2 moveInput;
+    public Vector2 moveInput;
 
     public bool CanMove = true;
 
@@ -37,6 +37,9 @@ public class Movement : MonoBehaviour
     private bool m_FacingRight = true;
 
     public GameObject player;
+
+    public float PlayerVelX;
+    public float PlayerVelY;
 
     public bool isGrounded;
     public LayerMask groundLayerMask;
@@ -75,6 +78,9 @@ public class Movement : MonoBehaviour
             // ... flip the player.
             Flip();
         }
+
+        PlayerVelX = rb.linearVelocity.x;
+        PlayerVelY = rb.linearVelocity.y;
 
         //Wall Sliding
         if (!isGrounded)
