@@ -14,8 +14,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float JumpForce;
     private Vector2 moveInput;
-    //Below is for pumpkin destroying
-    //For cutscenes
+
     public bool CanMove = true;
 
     //Below is for Player Animation
@@ -30,15 +29,30 @@ public class Movement : MonoBehaviour
     public Magnet magnet;
 
     public float MagnetDuration;
+    public SpriteRenderer spriteRenderer;
 
     public PointEffector2D pushPoint;
     public float pushduration;
+    public SwitchGravity switchGravity;
+    private bool m_FacingRight = true;
+
+    public GameObject player;
+
+    public bool isGrounded;
+    public LayerMask groundLayerMask;
+    public float GroundRaycastNum;
 
     [Header("Dash Stuff")]
     [SerializeField] private float dashforce = 25f;
     [SerializeField] private int dashcounter = 0;
     [SerializeField] private float dashtime = 0.2f;
-    
+
+    [Header("Wall Sliding")]
+    public bool wallSliding;
+    public Transform wallCheckPoint;
+    public bool wallCheck;
+    public LayerMask wallLayerMask;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,7 +64,43 @@ public class Movement : MonoBehaviour
         ProcessInputs();
         //Animate();
 
-        //aPumpkinText.text = $"Pumpkins: {PumpkinsDestroyed}";
+        if (moveInput.x > 0 && !m_FacingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if (moveInput.x < 0 && m_FacingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
+
+        //Wall Sliding
+        if (!isGrounded)
+        {
+            wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
+
+            if (moveInput.x > 0.1f || moveInput.x < 0.1f)
+            {
+                if(wallCheck)
+                {
+                    HandleWallSliding();
+                }
+            }
+        }
+
+        if(wallCheck == false || isGrounded)
+        {
+            wallSliding = false;
+        }
+    }
+
+    private void HandleWallSliding()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -0.7f);
+
+        wallSliding = true;
 
 
     }
@@ -60,6 +110,7 @@ public class Movement : MonoBehaviour
         Vector2 velocity = rb.linearVelocity;
         Vector2 movevelocity = new Vector2(moveInput.x * moveSpeed, velocity.y);
         rb.linearVelocity = movevelocity;
+
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -101,9 +152,36 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
-    }
+       if(isGrounded && !wallSliding) {
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse); 
+       }
 
+        if (wallSliding)
+        {
+            if (m_FacingRight)
+            {
+                rb.AddForce(new Vector2(-2, 5) * JumpForce, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(new Vector2(2, 5) * JumpForce, ForceMode2D.Impulse);
+            }
+        }
+    }
+    private void Flip()
+    {
+        // Switch the way the player is labelled as facing.
+        m_FacingRight = !m_FacingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
+    public void SwitchOrientation()
+    {
+
+    }
     public void Dash()
     {
          dashcounter++;
@@ -120,7 +198,7 @@ public class Movement : MonoBehaviour
         CanMove = true;
     }
 
-        public void MagnetMovement()
+    public void MagnetMovement()
     {
         lookdirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
@@ -145,5 +223,22 @@ public class Movement : MonoBehaviour
         //Debug.Log($"MoveY is {moveY}");
         //Debug.Log($"LastMoveDir.x is {lastMoveDirection.x}");
         //Debug.Log($"LastMoveDir.y is {lastMoveDirection.y}");
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer != 8)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+      isGrounded = false;
     }
 }

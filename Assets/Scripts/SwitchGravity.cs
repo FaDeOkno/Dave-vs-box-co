@@ -1,16 +1,9 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class SwitchGravity : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Rigidbody2D rb;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
