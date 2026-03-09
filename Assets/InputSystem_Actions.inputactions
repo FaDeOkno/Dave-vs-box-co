@@ -293,6 +293,17 @@
                 },
                 {
                     "name": "",
+                    "id": "6e1488d4-bdb7-4faf-85bd-49a8acd4a6f1",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Hold On Wall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "453b5193-691f-4be9-86eb-dfa157e789aa",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",

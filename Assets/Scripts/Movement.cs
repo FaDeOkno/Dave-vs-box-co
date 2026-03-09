@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -54,6 +55,15 @@ public class Movement : MonoBehaviour
 
     [Header("Wall Sliding")]
     [SerializeField] private bool CanHoldWall = false;
+    [SerializeField] private bool CancelMovement = false;
+    [SerializeField] private bool IsOnWall = false;
+
+    [SerializeField] private float WallJumpForce;
+
+    [SerializeField] private string WhichWallWasTouched;
+    [SerializeField] private bool CancelWallHold = false;
+
+    private bool CanJumpOnWall;
 
     private void Awake()
     {
@@ -83,7 +93,7 @@ public class Movement : MonoBehaviour
 
 
         var WallHold = playerInput.actions["Hold On Wall"];
-        if (WallHold.IsPressed())
+        if (WallHold.IsPressed() && !CancelWallHold)
         {
             CanHoldWall = true;
         }
@@ -93,23 +103,33 @@ public class Movement : MonoBehaviour
         }
 
 
-        if (CanHoldWall)
+        if (CanHoldWall && IsOnWall && !CanJumpOnWall)
         {
             rb.gravityScale = 0;
+        }
+        else
+        {
+            rb.gravityScale = 1f;
         }
     }
 
     private void FixedUpdate()
     {
-        Vector2 velocity = rb.linearVelocity;
-        Vector2 movevelocity = new Vector2(moveInput.x * moveSpeed, velocity.y);
-        rb.linearVelocity = movevelocity;
-
+        if (!IsOnWall)
+        {
+            Vector2 velocity = rb.linearVelocity;
+            Vector2 movevelocity = new Vector2(moveInput.x * moveSpeed, velocity.y);
+            rb.linearVelocity = movevelocity;
+        }
+        else if (IsOnWall)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (CanMove)
+        if (CanMove && !IsOnWall)
         {
             moveInput = context.ReadValue<Vector2>();
         }
@@ -146,8 +166,31 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if (isGrounded)
+        {
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);   
+        }
 
-        rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        if(WhichWallWasTouched == "L")
+        {
+            CanJumpOnWall = true;
+            CanHoldWall = false;
+            IsOnWall = false;
+            CancelWallHold = true;
+            rb.gravityScale = 1f;
+            rb.AddForce(Vector2.right * WallJumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * WallJumpForce, ForceMode2D.Impulse);
+        }
+        else if(WhichWallWasTouched == "R")
+        {
+            CanJumpOnWall = true;
+            CanHoldWall = false;
+            IsOnWall = false;
+            CancelWallHold = true;
+            rb.gravityScale = 1f;
+            rb.AddForce(Vector2.left * WallJumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * WallJumpForce, ForceMode2D.Impulse);
+        }
     }
     private void Flip()
     {
@@ -211,6 +254,29 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.layer != 8)
         {
             isGrounded = true;
+            CancelWallHold = false;
+        }
+        else if(collision.gameObject.layer == 8)
+        {
+            if (CanHoldWall)
+            {
+                IsOnWall = true;
+                isGrounded = false;
+
+                if (collision.gameObject.CompareTag("LWall"))
+                {
+                    WhichWallWasTouched = "L";
+                }
+                else if (collision.gameObject.CompareTag("RWall"))
+                {
+                    WhichWallWasTouched = "R";
+                }
+            }
+            else
+            {
+                IsOnWall = false;
+                isGrounded = false;
+            }
         }
         else
         {
@@ -218,8 +284,13 @@ public class Movement : MonoBehaviour
         }
     }
 
+    
+
     private void OnCollisionExit2D(Collision2D collision)
     {
       isGrounded = false;
+      IsOnWall = false;
+      WhichWallWasTouched = null;
+      CanJumpOnWall = false;
     }
 }
