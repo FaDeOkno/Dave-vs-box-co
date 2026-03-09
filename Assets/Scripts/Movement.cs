@@ -34,7 +34,6 @@ public class Movement : MonoBehaviour
 
     public PointEffector2D pushPoint;
     public float pushduration;
-    public SwitchGravity switchGravity;
     private bool m_FacingRight = true;
 
     public GameObject player;
@@ -180,6 +179,8 @@ public class Movement : MonoBehaviour
             rb.gravityScale = 1f;
             rb.AddForce(Vector2.right * WallJumpForce, ForceMode2D.Impulse);
             rb.AddForce(Vector2.up * WallJumpForce, ForceMode2D.Impulse);
+            CancelWallHold = false;
+            //CanJumpOnWall = false;
         }
         else if(WhichWallWasTouched == "R")
         {
@@ -190,6 +191,8 @@ public class Movement : MonoBehaviour
             rb.gravityScale = 1f;
             rb.AddForce(Vector2.left * WallJumpForce, ForceMode2D.Impulse);
             rb.AddForce(Vector2.up * WallJumpForce, ForceMode2D.Impulse);
+            CancelWallHold = false;
+            //CanJumpOnWall = false;
         }
     }
     private void Flip()
