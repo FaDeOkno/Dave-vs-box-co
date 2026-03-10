@@ -55,7 +55,9 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        Move();
         HandleFlip();
+        Jump();
         HandleWallHold();
         HandleGravity();
     }
@@ -74,15 +76,15 @@ public class Movement : MonoBehaviour
 
     // ── Input Callbacks ──────────────────────────────────────────
 
-    public void Move(InputAction.CallbackContext context)
+    public void Move()
     {
         if (CanMove && !isOnWall)
-            moveInput = context.ReadValue<Vector2>();
+            moveInput = inputHander.GetHorizontalInput();
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump()
     {
-        if (!context.performed) return;
+        if (!inputHander.JumpPressed()) return;
 
         if (isGrounded)
         {
