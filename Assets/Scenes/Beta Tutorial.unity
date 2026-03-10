@@ -208,6 +208,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PullObj.m_Reference
+      value: 
+      objectReference: {fileID: -2754395904986247487, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PushObj.m_Reference
+      value: 
+      objectReference: {fileID: 1173309309319787838, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PullObj.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PushObj.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PullObj.m_Action.m_Name
+      value: Pull Obj
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101312267376005133, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: PushObj.m_Action.m_Name
+      value: Push Obj
+      objectReference: {fileID: 0}
     - target: {fileID: 6110312253690498842, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.65
