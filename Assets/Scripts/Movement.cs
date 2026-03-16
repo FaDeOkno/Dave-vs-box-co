@@ -63,22 +63,61 @@ public class Movement : MonoBehaviour
 
     // ─────────────────────────────────────────────────────────────
 
-    // ── Die Code ─────────────────────────────────────────────────
+    // ── Die and Damage Code ─────────────────────────────────────────────────
+    [Header("Damage and Death")]
+    [SerializeField] Collider2D handLCollider;
+    [SerializeField] Collider2D handRCollider;
+    [SerializeField] Collider2D PlayerCollider;
+    [SerializeField] float damageCooldown = .25f;
 
+    bool gotDamaged = true;
+    bool dontRepeatDamage = false;
     public void Die()
     {
 
+    }
+
+    IEnumerator DamageCooldown()
+    {
+        if (!dontRepeatDamage)
+        {
+            gotDamaged = true;
+            dontRepeatDamage = true;
+            heartUI.RemoveHeart();
+            yield return new WaitForSeconds(damageCooldown);
+            dontRepeatDamage = false;
+            Debug.LogError("The damage repeat bool should be false");
+            gotDamaged = false;
+            yield break;
+        }
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        PlayerCollider = GetComponent<Collider2D>();
+        handLCollider = GameObject.FindGameObjectWithTag("LHand").GetComponent<Collider2D>();
+        handRCollider = GameObject.FindGameObjectWithTag("RHand").GetComponent<Collider2D>();
     }
 
     private void Update()
     {
         GetInputs();
+        /* So theres a bug where players dont get damaged
+         * and this is the easiest solution
+         * AKA: fucking up the variable names to not make sense
+         * sorry...*/
+        if (!gotDamaged)
+        {
+            Physics2D.IgnoreCollision(handLCollider, PlayerCollider, true);
+            Physics2D.IgnoreCollision(handRCollider, PlayerCollider, true);
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(handLCollider, PlayerCollider, false);
+            Physics2D.IgnoreCollision(handRCollider, PlayerCollider, false);
+        }
     }
     private void GetInputs()
     {
@@ -306,10 +345,12 @@ public class Movement : MonoBehaviour
             isGrounded = true;
             cancelWallHold = false;
         }
-        else if(collision.gameObject.layer == DamageLayer)
+        /*else if(collision.gameObject.layer == DamageLayer)
         {
+            Debug.LogError("Player Damaged");
             heartUI.RemoveHeart();
-        }
+            StartCoroutine(DamageCooldown());
+        }*/
         else
         {
             if (canHoldWall)
@@ -336,5 +377,15 @@ public class Movement : MonoBehaviour
         isOnWall = false;
         whichWallWasTouched = null;
         canJumpOffWall = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 10)
+        {
+            Debug.LogError("Player Damaged");
+            StartCoroutine(DamageCooldown());
+            dontRepeatDamage = true;
+        }
     }
 }

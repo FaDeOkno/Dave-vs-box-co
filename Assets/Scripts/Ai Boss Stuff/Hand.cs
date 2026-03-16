@@ -9,9 +9,6 @@ public class Hand : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Vector3 HandMoveTo;
 
-    [SerializeField] Collider2D HandCollider;
-    [SerializeField] Collider2D PlayerCollider;
-
     [SerializeField] LayerMask GroundLayer;
 
     [SerializeField] float HandDownForce;
@@ -38,7 +35,6 @@ public class Hand : MonoBehaviour
     private void Update()
     {
         HandMoveTo = new Vector3(PlayerTransform.position.x, -1f, 0);
-        Physics2D.IgnoreCollision(HandCollider, PlayerCollider, true);
     }
 
     IEnumerator HandAttack(float duration1, float duration2, float duration3, float handupduration)

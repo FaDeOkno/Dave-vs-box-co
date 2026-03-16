@@ -466,11 +466,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6110312253690498842, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
   m_PrefabInstance: {fileID: 1697649061}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &75171967 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5486387892403866774, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
-  m_PrefabInstance: {fileID: 1697649061}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &237036377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,9 +1474,9 @@ GameObject:
   - component: {fileID: 1169466857}
   - component: {fileID: 1169466860}
   - component: {fileID: 1169466861}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HandL
-  m_TagString: Untagged
+  m_TagString: LHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1501,8 +1496,6 @@ MonoBehaviour:
   PlayerTransform: {fileID: 75171961}
   rb: {fileID: 1169466860}
   HandMoveTo: {x: 0, y: 0, z: 0}
-  HandCollider: {fileID: 1169466861}
-  PlayerCollider: {fileID: 75171967}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1640,7 +1633,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2165,12 +2158,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: heartUI
+      value: 
+      objectReference: {fileID: 854281966}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: canHoldWall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: pushDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: damageCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: magnetDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
       propertyPath: quickDashForce
       value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
       propertyPath: DashCooldownNum
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: DamageLayer.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2815,9 +2832,9 @@ GameObject:
   - component: {fileID: 2079920287}
   - component: {fileID: 2079920286}
   - component: {fileID: 2079920285}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HandR
-  m_TagString: Untagged
+  m_TagString: RHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2922,7 +2939,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2980,8 +2997,6 @@ MonoBehaviour:
   PlayerTransform: {fileID: 75171961}
   rb: {fileID: 2079920286}
   HandMoveTo: {x: 0, y: 0, z: 0}
-  HandCollider: {fileID: 2079920285}
-  PlayerCollider: {fileID: 75171967}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 128

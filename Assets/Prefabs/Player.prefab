@@ -402,6 +402,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 9109031693881962294}
   pushPoint: {fileID: 1456732750055200830}
   player: {fileID: 2505028275435500718}
+  heartUI: {fileID: 0}
+  DamageLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   moveSpeed: 5
   jumpForce: 5
   moveInput: {x: 0, y: 0}
@@ -418,8 +422,9 @@ MonoBehaviour:
   isOnWall: 0
   canHoldWall: 0
   cancelWallHold: 0
-  quickDashForce: 17
+  quickDashForce: 23
   quickDashDuration: 0.12
+  DashCooldownNum: 0.5
 --- !u!114 &4101312267376005133
 MonoBehaviour:
   m_ObjectHideFlags: 0

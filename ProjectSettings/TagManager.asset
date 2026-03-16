@@ -9,6 +9,8 @@ TagManager:
   - RWall
   - CamClamps
   - Boundry
+  - LHand
+  - RHand
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Ground
   - Walls
   - CamClamps
-  - 
+  - Damage
   - 
   - 
   - 
