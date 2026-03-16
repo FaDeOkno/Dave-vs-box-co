@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class Movement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public PointEffector2D pushPoint;
     public GameObject player;
+    public HeartUI heartUI;
+    public LayerMask DamageLayer;
 
     // ── Movement ─────────────────────────────────────────────────
     [SerializeField] private float moveSpeed = 5f;
@@ -54,7 +57,9 @@ public class Movement : MonoBehaviour
     [Header("Quick Dash")]
     [SerializeField] private float quickDashForce = 15f;
     [SerializeField] private float quickDashDuration = 0.12f;
+    [SerializeField] float DashCooldownNum;
     private bool isQuickDashing = false;
+    bool CanDash = true;
 
     // ─────────────────────────────────────────────────────────────
 
@@ -112,8 +117,7 @@ public class Movement : MonoBehaviour
     {
         if (!inputHander.QuickDashPressed()) return;
         if (isQuickDashing) return;
-
-        StartCoroutine(QuickDashRoutine());
+        if (CanDash) StartCoroutine(QuickDashRoutine());
     }
 
     private IEnumerator QuickDashRoutine()
@@ -130,6 +134,14 @@ public class Movement : MonoBehaviour
         rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
         CanMove = true;
         isQuickDashing = false;
+        StartCoroutine(DashCooldown());
+    }
+    IEnumerator DashCooldown()
+    {
+        CanDash = false;
+        yield return new WaitForSeconds(DashCooldownNum);
+        CanDash = true;
+        yield break;
     }
 
     public void Move()
@@ -293,6 +305,10 @@ public class Movement : MonoBehaviour
         {
             isGrounded = true;
             cancelWallHold = false;
+        }
+        else if(collision.gameObject.layer == DamageLayer)
+        {
+            heartUI.RemoveHeart();
         }
         else
         {
