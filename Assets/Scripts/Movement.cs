@@ -72,6 +72,7 @@ public class Movement : MonoBehaviour
 
     bool gotDamaged = true;
     bool dontRepeatDamage = false;
+    bool isTriggered;
     public void Die()
     {
 
@@ -85,6 +86,7 @@ public class Movement : MonoBehaviour
             dontRepeatDamage = true;
             heartUI.RemoveHeart();
             yield return new WaitForSeconds(damageCooldown);
+            Debug.LogError("Damage cooldown finished");
             dontRepeatDamage = false;
             Debug.LogError("The damage repeat bool should be false");
             gotDamaged = false;
@@ -381,11 +383,22 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 10)
+        isTriggered = false;
+        if (!isTriggered)
         {
+            if(collision.gameObject.layer == 10)
+            {
             Debug.LogError("Player Damaged");
+            Debug.LogError($"Dont repeat damage {dontRepeatDamage} ");
             StartCoroutine(DamageCooldown());
             dontRepeatDamage = true;
+            isTriggered = true;
+            }
         }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        isTriggered = false;
     }
 }
