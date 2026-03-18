@@ -1677,11 +1677,13 @@ MonoBehaviour:
   Duration2: 3
   Duration3: 3
   HandUpDuration: 0.15
-  HandHealth: 3
+  HandHealth: 1
   HandIsDead: 0
   Colliders:
   - {fileID: 1169466861}
   - {fileID: 850038324}
+  IsHandLDead: 0
+  IsHandRDead: 0
   bossGeneral: {fileID: 1307614975}
 --- !u!212 &1169466858
 SpriteRenderer:
@@ -1935,6 +1937,8 @@ MonoBehaviour:
   RHand: {fileID: 2079920282}
   startBoss: 0
   Phase1Attacking: 0
+  Phase1Finished: 0
+  Phase2Attacking: 0
   P1CouStoped: 0
 --- !u!4 &1307614976
 Transform:
@@ -2697,7 +2701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1915398168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3349,11 +3353,13 @@ MonoBehaviour:
   Duration2: 3
   Duration3: 3
   HandUpDuration: 0.15
-  HandHealth: 3
+  HandHealth: 1
   HandIsDead: 0
   Colliders:
   - {fileID: 2079920285}
   - {fileID: 1437358080}
+  IsHandLDead: 0
+  IsHandRDead: 0
   bossGeneral: {fileID: 1307614975}
 --- !u!1 &2108789519
 GameObject:
