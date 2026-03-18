@@ -15,10 +15,24 @@ public class Hand : MonoBehaviour
     [SerializeField] float HandDownForce;
     [SerializeField] float GoBackForce;
 
+    [Header("Hand Down Durations")]
     [SerializeField] float Duration1;
     [SerializeField] float Duration2;
     [SerializeField] float Duration3;
     [SerializeField] float HandUpDuration;
+
+    [Header("Hand Slider Durations")]
+    [SerializeField] float SlideDur1;
+    [SerializeField] float SlideDur2;
+    [SerializeField] float SlideDur3;
+
+    [Header("Hand Slider GoToPos")]
+    [SerializeField] Transform StartHandLGo;
+    [SerializeField] Transform StartHandRGo;
+    [Space]
+    [SerializeField] Transform HandLGoTo;
+    [SerializeField] Transform HandRGoTo;
+    
 
     //Make sure both hands are dead
     [Header("Hand Death")]
@@ -72,7 +86,6 @@ public class Hand : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Hand Health: {HandHealth}");
     }
 
     IEnumerator HandAttack(float duration1, float duration2, float duration3, float handupduration)
@@ -105,17 +118,14 @@ public class Hand : MonoBehaviour
             float elapsed2 = 0f;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, GroundLayer);
             float GroundDistance = hit.distance;
-            Debug.Log("Ground Distance: " + GroundDistance);
 
             Vector3 FloorHit = new Vector3(transform.position.x, -GroundDistance + transform.position.y + 1f, 0);
-            Debug.Log($"FloorHit Vector: {FloorHit}");
 
             //Strikes down
             while (elapsed2 < duration2)
             {
                 Vector3 targetPosition = Vector3.MoveTowards(transform.position, FloorHit, HandDownForce * Time.fixedDeltaTime);
                 rb.MovePosition(targetPosition);
-                Debug.Log($"Current Position: {transform.position}, Target Position: {targetPosition}");
                 //rb.MovePosition(FloorHit);
                 elapsed2 += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
@@ -132,12 +142,60 @@ public class Hand : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
 
-            Debug.Log("Hand Attack Finished");
-
         }
         bossGeneral.Phase1Attacking = false;
     }
+    IEnumerator SlideAttack(float dur1, float dur2, float dur3)
+    {
+        float elapsed1 = 0f;
+        Vector2 OgPos = transform.position;
+        while (elapsed1 < dur1)
+        {
+            
+            //Brings Hands to where to start off screen
+            if (gameObject.CompareTag("LHand"))
+            {
+                Vector3 Movetowards = new Vector3(StartHandLGo.position.x, StartHandLGo.position.y, 0);
+                rb.MovePosition(Movetowards);
+                elapsed1 += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            else if (gameObject.CompareTag("RHand"))
+            {
+                Vector3 Movetowards = new Vector3(StartHandRGo.position.x, StartHandRGo.position.y, 0);
+                rb.MovePosition(Movetowards);
+                elapsed1 += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+        }
 
+        float elapsed2 = 0f;
+        while(elapsed2 < dur2)
+        {
+            if (gameObject.CompareTag("LHand"))
+            {
+                Vector3 Movetowards = new Vector3(HandLGoTo.position.x, HandLGoTo.position.y, 0);
+                rb.MovePosition(Movetowards);
+                elapsed2 += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            else if (gameObject.CompareTag("RHand"))
+            {
+                Vector3 Movetowards = new Vector3(HandRGoTo.position.x, HandRGoTo.position.y, 0);
+                rb.MovePosition(Movetowards);
+                elapsed2 += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        float elapsed3 = 0f;
+        while(elapsed3 < dur3)
+        {
+            rb.MovePosition(OgPos);
+            elapsed2 += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+    }
     void StartHandDeath()
     {
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;

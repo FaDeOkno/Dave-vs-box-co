@@ -8,8 +8,8 @@ public class BossGeneral : MonoBehaviour
     public GameObject LHand;
     public GameObject RHand;
 
-    Hand leftHand;
-    Hand rightHand;
+    [SerializeField] Hand leftHand;
+    [SerializeField] Hand rightHand;
 
     public bool startBoss;
 
@@ -20,25 +20,8 @@ public class BossGeneral : MonoBehaviour
     public bool P1CouStoped = false;
     bool phase1CoroutineRunning = false;
 
-    void Awake()
-    {
-        if (LHand != null) leftHand = LHand.GetComponent<Hand>();
-        if (RHand != null) rightHand = RHand.GetComponent<Hand>();
-    }
-
     void Update()
     {
-        if (leftHand == null || rightHand == null)
-        {
-            if (LHand != null) leftHand = LHand.GetComponent<Hand>();
-            if (RHand != null) rightHand = RHand.GetComponent<Hand>();
-        }
-
-        if (leftHand == null || rightHand == null)
-        {
-            Debug.LogWarning("BossGeneral needs both hands assigned");
-            return;
-        }
 
         if (startBoss && !phase1CoroutineRunning && !Phase1Finished)
         {
@@ -54,15 +37,11 @@ public class BossGeneral : MonoBehaviour
         bool leftDead = leftHand.IsDead;
         bool rightDead = rightHand.IsDead;
 
-        Debug.LogError($"IS HANDL DEAD: {leftDead}");
-        Debug.LogError($"IS HANDR DEAD: {rightDead}");
-
         if (leftDead && rightDead)
         {
             Phase1Finished = true;
             Phase1Attacking = false;
             Phase2Attacking = true;
-            Debug.LogError("ALL HANDS HAVE DIED AND SHOULD NOT WORK ANYMORE");
         }
     }
 
@@ -72,19 +51,16 @@ public class BossGeneral : MonoBehaviour
 
         if (Phase1Finished)
         {
-            Debug.LogError("The Dead hand shouldnt attack because the phase1 finished");
             phase1CoroutineRunning = false;
             yield break;
         }
 
         while (!Phase1Attacking && !Phase1Finished)
         {
-            Debug.Log("Coroutine has started");
 
             int AttackChance = Random.Range(-1, 2);
             if (AttackChance == 0)
             {
-                Debug.Log("Attack chance failed.. Restarting Coroutine");
                 yield return new WaitForSeconds(1f);
                 P1CouStoped = true;
                 break;
@@ -124,12 +100,5 @@ public class BossGeneral : MonoBehaviour
         }
 
         phase1CoroutineRunning = false;
-    }
-    void Restart(IEnumerator myCor)
-    {
-        string corStr = $"{myCor}";
-        Debug.Log($"Restarting Coroutine: {corStr}");
-        StopCoroutine(corStr);
-        StartCoroutine(corStr);
     }
 }

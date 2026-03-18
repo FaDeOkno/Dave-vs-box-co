@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     // ── Movement ─────────────────────────────────────────────────
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
-    public Rigidbody2D rb { get; private set; }
+    public Rigidbody2D rb;
     public Vector2 moveInput;
     public bool CanMove = true;
 
@@ -70,7 +70,6 @@ public class Movement : MonoBehaviour
     [SerializeField] Collider2D PlayerCollider;
     [SerializeField] float damageCooldown = .25f;
 
-    bool gotDamaged = true;
     bool dontRepeatDamage = false;
     bool isTriggered;
     public void Die()
@@ -82,14 +81,12 @@ public class Movement : MonoBehaviour
     {
         if (!dontRepeatDamage)
         {
-            gotDamaged = true;
             dontRepeatDamage = true;
             heartUI.RemoveHeart();
             yield return new WaitForSeconds(damageCooldown);
             Debug.LogError("Damage cooldown finished");
             dontRepeatDamage = false;
             Debug.LogError("The damage repeat bool should be false");
-            gotDamaged = false;
             yield break;
         }
     }
@@ -102,6 +99,8 @@ public class Movement : MonoBehaviour
 
         Physics2D.IgnoreCollision(PlayerCollider, handLCollider, true);
         Physics2D.IgnoreCollision(PlayerCollider, handRCollider, true);
+
+
     }
 
     private void Update()
