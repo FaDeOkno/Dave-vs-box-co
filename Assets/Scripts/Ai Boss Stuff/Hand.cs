@@ -26,6 +26,8 @@ public class Hand : MonoBehaviour
     [SerializeField] float SlideDur2;
     [SerializeField] float SlideDur3;
 
+    [SerializeField] float AttackDelay;
+
     [Header("Hand Slider GoToPos")]
     [SerializeField] Transform StartHandLGo;
     [SerializeField] Transform StartHandRGo;
@@ -151,50 +153,66 @@ public class Hand : MonoBehaviour
     {
         float elapsed1 = 0f;
         Vector2 OgPos = transform.position;
+        var startPos1 = transform.position;
+
+        bool attackCooldown = false;
         while (elapsed1 < dur1)
         {
             
             //Brings Hands to where to start off screen
             if (gameObject.CompareTag("LHand"))
             {
-                Vector3 Movetowards = new Vector3(StartHandLGo.position.x, StartHandLGo.position.y, 0);
-                rb.MovePosition(Movetowards);
-                elapsed1 += Time.fixedDeltaTime;
+                elapsed1 += Time.deltaTime;
+                Vector2 MoveTo = new Vector2(StartHandLGo.position.x, StartHandLGo.position.y);
+                transform.position = Vector2.Lerp(startPos1, MoveTo, elapsed1 / dur1);
                 yield return new WaitForFixedUpdate();
             }
             else if (gameObject.CompareTag("RHand"))
             {
-                Vector3 Movetowards = new Vector3(StartHandRGo.position.x, StartHandRGo.position.y, 0);
-                rb.MovePosition(Movetowards);
-                elapsed1 += Time.fixedDeltaTime;
+                elapsed1 += Time.deltaTime;
+                Vector2 MoveTo = new Vector2(StartHandRGo.position.x, StartHandRGo.position.y);
+                transform.position = Vector2.Lerp(startPos1, MoveTo, elapsed1 / dur1);
                 yield return new WaitForFixedUpdate();
             }
+        }
+
+        if (!attackCooldown)
+        {
+            yield return new WaitForSeconds(AttackDelay);
+            attackCooldown = true;
         }
 
         float elapsed2 = 0f;
-        while(elapsed2 < dur2)
+        var startPos2 = transform.position;
+        while (elapsed2 < dur2)
         {
+            transform.rotation = Quaternion.Euler(new Vector3(0,0, 90));
+            
             if (gameObject.CompareTag("LHand"))
             {
-                Vector3 Movetowards = new Vector3(HandLGoTo.position.x, HandLGoTo.position.y, 0);
-                rb.MovePosition(Movetowards);
-                elapsed2 += Time.fixedDeltaTime;
+                elapsed2 += Time.deltaTime;
+                Vector2 MoveTo = new Vector2(HandLGoTo.position.x, HandLGoTo.position.y);
+                transform.position = Vector2.Lerp(startPos2, MoveTo, elapsed2 / dur2);
                 yield return new WaitForFixedUpdate();
             }
             else if (gameObject.CompareTag("RHand"))
             {
-                Vector3 Movetowards = new Vector3(HandRGoTo.position.x, HandRGoTo.position.y, 0);
-                rb.MovePosition(Movetowards);
-                elapsed2 += Time.fixedDeltaTime;
+                elapsed2 += Time.deltaTime;
+                Vector2 MoveTo = new Vector2(HandRGoTo.position.x, HandRGoTo.position.y);
+                transform.position = Vector2.Lerp(startPos2, MoveTo, elapsed2 / dur2);
                 yield return new WaitForFixedUpdate();
             }
         }
+        attackCooldown = false;
 
         float elapsed3 = 0f;
-        while(elapsed3 < dur3)
+        var startPos3 = transform.position;
+        while (elapsed3 < dur3)
         {
-            rb.MovePosition(OgPos);
-            elapsed2 += Time.fixedDeltaTime;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            elapsed3 += Time.deltaTime;
+            Vector2 MoveTo = new Vector2(HandRGoTo.position.x, HandRGoTo.position.y);
+            transform.position = Vector2.Lerp(startPos3, OgPos, elapsed3 / dur3);
             yield return new WaitForFixedUpdate();
         }
     }

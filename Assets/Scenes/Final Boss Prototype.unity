@@ -1060,7 +1060,7 @@ Transform:
   m_GameObject: {fileID: 1138626360}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.88, y: -7.95, z: 0}
+  m_LocalPosition: {x: 16.88, y: -7.6535683, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1110,9 +1110,10 @@ MonoBehaviour:
   Duration2: 3
   Duration3: 3
   HandUpDuration: 0.15
-  SlideDur1: 3
+  SlideDur1: 1
   SlideDur2: 3
   SlideDur3: 3
+  AttackDelay: 1.2
   StartHandLGo: {fileID: 1525552828}
   StartHandRGo: {fileID: 1138626361}
   HandLGoTo: {fileID: 2080400692}
@@ -1293,7 +1294,7 @@ Transform:
   m_GameObject: {fileID: 1196702670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.29, y: -9.84, z: 0}
+  m_LocalPosition: {x: -22.29, y: -7.653568, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1549,7 +1550,7 @@ Transform:
   m_GameObject: {fileID: 1525552827}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.29, y: -9.84, z: 0}
+  m_LocalPosition: {x: -22.29, y: -8.653568, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1873,6 +1874,22 @@ PrefabInstance:
       propertyPath: handRCollider
       value: 
       objectReference: {fileID: 1915330076}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: playerColliders.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: 'playerColliders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2075159979}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: 'playerColliders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2075159978}
+    - target: {fileID: 7440244137984001522, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+      propertyPath: 'playerColliders.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2075159976}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2354,6 +2371,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2075159976 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5486387892403866774, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+  m_PrefabInstance: {fileID: 1697649061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2075159978 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4846947957782504641, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+  m_PrefabInstance: {fileID: 1697649061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2075159979 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5924957932762235289, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+  m_PrefabInstance: {fileID: 1697649061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2079434829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,9 +2802,10 @@ MonoBehaviour:
   Duration2: 3
   Duration3: 3
   HandUpDuration: 0.15
-  SlideDur1: 3
+  SlideDur1: 1
   SlideDur2: 3
   SlideDur3: 3
+  AttackDelay: 1.2
   StartHandLGo: {fileID: 1525552828}
   StartHandRGo: {fileID: 1138626361}
   HandLGoTo: {fileID: 2080400692}
@@ -2808,7 +2841,7 @@ Transform:
   m_GameObject: {fileID: 2080400691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.88, y: -10.7, z: 0}
+  m_LocalPosition: {x: 16.88, y: -8.653568, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -61,7 +62,8 @@ public class Movement : MonoBehaviour
     private bool isQuickDashing = false;
     bool CanDash = true;
 
-    // ─────────────────────────────────────────────────────────────
+    // List Of Player collision because it has multiple
+    public List<Collider2D> playerColliders;
 
     // ── Die and Damage Code ─────────────────────────────────────────────────
     [Header("Damage and Death")]
@@ -97,10 +99,14 @@ public class Movement : MonoBehaviour
         anim = GetComponent<Animator>();
         PlayerCollider = GetComponent<Collider2D>();
 
-        Physics2D.IgnoreCollision(PlayerCollider, handLCollider, true);
-        Physics2D.IgnoreCollision(PlayerCollider, handRCollider, true);
+        //Physics2D.IgnoreCollision(PlayerCollider, handLCollider, true);
+        //Physics2D.IgnoreCollision(PlayerCollider, handRCollider, true);
 
-
+        foreach (Collider2D col in playerColliders)
+        {
+            Physics2D.IgnoreCollision(col, handLCollider, true);
+            Physics2D.IgnoreCollision(col, handRCollider, true);
+        }
     }
 
     private void Update()
