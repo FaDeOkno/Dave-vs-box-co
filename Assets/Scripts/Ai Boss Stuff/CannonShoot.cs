@@ -20,6 +20,7 @@ public class CannonShoot : MonoBehaviour
     public Transform AITransform;
     [Header("Useful Stuff")]
     public BossGeneral bossGeneral;
+    private bool isCouStarted = false;
 
     void Start()
     {
@@ -34,9 +35,19 @@ public class CannonShoot : MonoBehaviour
 
     IEnumerator ResetMeter()
     {
-        if(ChargeMeter <= 0) {ChargeMeter = 0; yield break;}
+        if(ChargeMeter <= 0) {ChargeMeter = 0; isCouStarted = false; yield break;}
         ChargeMeter -= MeterSubBy;
         yield return new WaitForSeconds(MeterSubCooldown);
+    }
+
+    public void AddCharge()
+    {
+        ChargeMeter++;
+        if (!isCouStarted)
+        {
+            StartCoroutine(ResetMeter());
+            isCouStarted = true;
+        }
     }
     IEnumerator ShootCannon()
     {
@@ -44,16 +55,20 @@ public class CannonShoot : MonoBehaviour
         CannonLine.SetPosition(0, StartLine.position);
         CannonLine.SetPosition(1, AITransform.position);
 
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(1f);
         CannonLine.enabled = false;
         bossGeneral.health--;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && ChargeMeter >= 3)
         {
-            StartCoroutine(ShootCannon());
+            if (bossGeneral.Phase2Attacking)
+            {
+                StartCoroutine(ShootCannon());
+                ChargeMeter = 0;
+            }
         }
     }
 }

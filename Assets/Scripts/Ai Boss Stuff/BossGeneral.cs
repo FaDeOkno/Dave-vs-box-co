@@ -273,11 +273,11 @@ public class BossGeneral : MonoBehaviour
             var hitPoint3D = new Vector3(hit.point.x, hit.point.y, 0);
             //endPosition = hitPoint3D;
         }
-        if (hit.collider.gameObject.CompareTag("Player")&& StrikePlayer == true){
+        /*if (hit.collider.gameObject.CompareTag("Player")&& StrikePlayer == true){
             Debug.LogError("Hit Player");
             StartCoroutine(movement.DamageCooldown());
             
-        }
+        }*/
         laserLineRenderer.enabled = true;
         laserLineRenderer.SetPosition(0, targetPosition);
         laserLineRenderer.SetPosition(1, endPosition);
@@ -287,5 +287,8 @@ public class BossGeneral : MonoBehaviour
     {
         Debug.Log("AI BOSS HAS DIED");
         startBoss = false;
+        StopAllCoroutines();
+
+        //Start Ending sequence
     }
 }

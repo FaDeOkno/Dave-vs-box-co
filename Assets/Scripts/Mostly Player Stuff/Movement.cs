@@ -91,6 +91,10 @@ public class Movement : MonoBehaviour
 
     bool dontRepeatDamage = false;
     bool isTriggered;
+    bool CanUseMag = true;
+
+    [Space]
+    [SerializeField] float MagCooldown;
     public void Die()
     {
         
@@ -98,22 +102,24 @@ public class Movement : MonoBehaviour
     // This is the one function that houses all magnet abilities
     public void Magnet()
     {
-        if(inputHander.MagnetButPressed() == false) {return;}
+        if (inputHander == null || !inputHander.MagnetButPressed()) return;
 
+        // Immediately block further uses so holding the button doesn't restart cooldowns
+        if (!CanUseMag) return;
+
+        CanUseMag = false;
         Debug.Log(WhatMagnetToUse);
 
-        if(WhatMagnetToUse == "pull")
+        if (WhatMagnetToUse == "pull")
         {
             if (!isPulling)
             {
-                // Activate
                 isPulling = true;
                 magnet.isActive = true;
                 pullRoutine = StartCoroutine(PullTimer());
             }
             else
             {
-                // Cancel early (toggle off)
                 StopCoroutine(pullRoutine);
                 EndPull();
             }
@@ -134,44 +140,42 @@ public class Movement : MonoBehaviour
         }
         else if (WhatMagnetToUse == "lazer")
         {
-            RaycastHit2D hit = Physics2D.Raycast(Vector2.zero, Vector2.zero);
-            Vector2 rayOrigin = Vector2.zero;
-
             Debug.Log($"Is Facing right : {facingRight}");
-            if(!facingRight)
+            RaycastThing(facingRight ? Vector2.right : Vector2.left);
+        }
+
+        StartCoroutine(MagnetCooldown());
+    }
+    void RaycastThing(Vector2 dir)
+    {
+        Vector2 rayOrigin = (Vector2)transform.position + dir * 0.1f;
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, dir, LaserMaxDist, ~IgnorePlayerLayer);
+
+        Vector3 rayEnd = hit.collider != null ? (Vector3)hit.point : (Vector3)(rayOrigin + dir * LaserMaxDist);
+        Debug.DrawRay(rayOrigin, rayEnd - (Vector3)rayOrigin, Color.white);
+
+        if (LazerPointiere != null)
+        {
+            LazerPointiere.SetPosition(0, rayOrigin);
+            LazerPointiere.SetPosition(1, rayEnd);
+            StartCoroutine(LazerPointer());
+        }
+
+        if (hit.collider != null && hit.collider.CompareTag("cannon"))
+        {
+            if (hit.collider.TryGetComponent<CannonShoot>(out cannonShoot))
             {
-                rayOrigin = (Vector2)transform.position + Vector2.left * 0.1f;
-                hit = Physics2D.Raycast(rayOrigin, Vector2.left, LaserMaxDist, ~IgnorePlayerLayer);
-
-                Vector3 rayEnd = hit.collider != null ? hit.point : rayOrigin + Vector2.left * LaserMaxDist;
-                Debug.DrawRay(rayOrigin, rayEnd - (Vector3)rayOrigin, Color.white);
-
-                // Log the actual end point of the ray
-                Vector2 endPoint = hit.collider != null ? hit.point : rayOrigin + Vector2.left * LaserMaxDist;
-                Debug.Log($"Ray End Point: {endPoint}");
-                Debug.Log($"Hit: {hit.collider}");
-            }
-            else if(facingRight)
-            {
-                rayOrigin = (Vector2)transform.position + Vector2.right * 0.1f;
-                hit = Physics2D.Raycast(rayOrigin, Vector2.right, LaserMaxDist, ~IgnorePlayerLayer);
-
-                Vector3 rayEnd = hit.collider != null ? hit.point : rayOrigin + Vector2.right * LaserMaxDist;
-                Debug.DrawRay(rayOrigin, rayEnd - (Vector3)rayOrigin, Color.white);
-
-                // Log the actual end point of the ray
-                Vector2 endPoint = hit.collider != null ? hit.point : rayOrigin + Vector2.right * LaserMaxDist;
-                Debug.Log($"Ray End Point: {endPoint}");
-                Debug.Log($"Hit: {hit.collider}");
-            }
-
-            if(hit.collider.CompareTag("cannon")){
-                hit.collider.TryGetComponent<CannonShoot>(out cannonShoot);
-                Debug.Log(cannonShoot);
-                Debug.Log($"Hit Cannon");
-
+                cannonShoot.AddCharge();
             }
         }
+    }
+
+    IEnumerator MagnetCooldown()
+    {
+        CanUseMag = false;
+        yield return new WaitForSeconds(MagCooldown);
+        CanUseMag = true;
+        yield break;
     }
 
     IEnumerator LazerPointer()
