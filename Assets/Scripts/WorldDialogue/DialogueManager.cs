@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     [Header("UI References")]
+    [SerializeField] Canvas dialogueCanvas;
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogueText;
@@ -74,12 +75,13 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData data)
     {
-        if (dialogueActive || data == null || data.lines.Length == 0) return;
+if (dialogueActive || data == null || data.lines.Length == 0) return;
 
         lines = data.lines;
         currentLine = 0;
         dialogueActive = true;
         justStarted = true;
+        if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
         dialoguePanel.SetActive(true);
 
         if (InputHander.Instance != null)
@@ -148,6 +150,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueActive = false;
         dialoguePanel.SetActive(false);
+        if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(false);
         if (InputHander.Instance != null)
             InputHander.Instance.EnableInputs();
     }

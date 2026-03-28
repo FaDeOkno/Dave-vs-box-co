@@ -67,6 +67,12 @@ public class Movement : MonoBehaviour
     private bool isQuickDashing = false;
     bool CanDash = true;
 
+    // ── Shop Upgrades ───────────────────────────────────────────────────
+    [Header("Shop Upgrades")]
+    public bool hasDoubleJump = false;
+    public bool hasDash = false;
+    private bool usedDoubleJump = false;
+
     // List Of Player collision because it has multiple
     public List<Collider2D> playerColliders;
 
@@ -97,7 +103,19 @@ public class Movement : MonoBehaviour
     [SerializeField] float MagCooldown;
     public void Die()
     {
-        
+
+    }
+
+    // Called by the shop to widen + lengthen the laser.
+    public void UpgradeLaser()
+    {
+        PlayerLazerWidth *= 1.5f;
+        LaserMaxDist *= 1.5f;
+        if (LazerPointiere != null)
+        {
+            LazerPointiere.startWidth = PlayerLazerWidth;
+            LazerPointiere.endWidth = PlayerLazerWidth;
+        }
     }
     // This is the one function that houses all magnet abilities
     public void Magnet()
@@ -272,6 +290,7 @@ public class Movement : MonoBehaviour
     public void QuickDash()
     {
         if (!inputHander.QuickDashPressed()) return;
+        if (!hasDash) return;
         if (isQuickDashing) return;
         if (CanDash) StartCoroutine(QuickDashRoutine());
     }
@@ -312,14 +331,28 @@ public class Movement : MonoBehaviour
 
         if (isGrounded)
         {
+            usedDoubleJump = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             return;
         }
 
         if (whichWallWasTouched == "L")
+        {
             WallJump(Vector2.right);
+            return;
+        }
         else if (whichWallWasTouched == "R")
+        {
             WallJump(Vector2.left);
+            return;
+        }
+
+        if (hasDoubleJump && !usedDoubleJump)
+        {
+            usedDoubleJump = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
 
     // ── Wall Jump ─────────────────────────────────────────────────
@@ -461,6 +494,7 @@ public class Movement : MonoBehaviour
         {
             isGrounded = true;
             cancelWallHold = false;
+            usedDoubleJump = false;
         }
         /*else if(collision.gameObject.layer == DamageLayer)
         {
