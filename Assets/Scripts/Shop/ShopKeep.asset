@@ -15,11 +15,11 @@ MonoBehaviour:
   lines:
   - speakerName: Remy
     portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
-    text: H-h-hi, Im Remy, our teams scientist.
+    text: H-h-hi, Im Remy, our team's scientist.
     voice: {fileID: 0}
   - speakerName: Remy
     portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
-    text: When this A.I. took over all computer scientist went living on the streets,
+    text: When this A.I. took over, all computer scientist went living on the streets,
       and i was one of them.
     voice: {fileID: 0}
   - speakerName: Remy
@@ -44,5 +44,5 @@ MonoBehaviour:
     voice: {fileID: 0}
   - speakerName: Remy
     portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
-    text: An-anyways, can I give any upgrade?
+    text: An-anyways, can I give you any upgrades?
     voice: {fileID: 0}
