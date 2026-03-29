@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: Remy
-    portrait: {fileID: 21300000, guid: 249b343487a0d69449f5e96d1d04ea44, type: 3}
-    text: H-h-hi, Im Remy, our team's scientist.
-    voice: {fileID: 0}
-  - speakerName: Remy
     portrait: {fileID: 21300000, guid: e43b86725ca03c74895b5029ac2238f0, type: 3}
     text: When this A.I. took over, all computer scientist went living on the streets,
       and i was one of them.

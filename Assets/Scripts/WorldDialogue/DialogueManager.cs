@@ -42,6 +42,7 @@ public class DialogueManager : MonoBehaviour
     private bool justStarted;
     private Coroutine typingCoroutine;
     private float blinkTimer;
+    private System.Action onEndCallback;
 
     void Awake()
     {
@@ -74,9 +75,10 @@ public class DialogueManager : MonoBehaviour
             Advance();
     }
 
-    public void StartDialogue(DialogueData data)
+    public void StartDialogue(DialogueData data, System.Action onEnd = null)
     {
-if (dialogueActive || data == null || data.lines.Length == 0) return;
+        if (dialogueActive || data == null || data.lines.Length == 0) return;
+        onEndCallback = onEnd;
 
         lines = data.lines;
         currentLine = 0;
@@ -150,9 +152,32 @@ if (dialogueActive || data == null || data.lines.Length == 0) return;
     void EndDialogue()
     {
         dialogueActive = false;
+        continueIndicator.SetActive(false);
+
+        if (onEndCallback != null)
+        {
+            var cb = onEndCallback;
+            onEndCallback = null;
+            cb.Invoke(); // dialogue panel stays visible, choices appear alongside
+            return;
+        }
+
+        dialoguePanel.SetActive(false);
+        CloseCanvas();
+    }
+
+    public void CloseCanvas()
+    {
         dialoguePanel.SetActive(false);
         if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(false);
         if (InputHander.Instance != null)
             InputHander.Instance.EnableInputs();
+    }
+
+    public void OpenCanvasOnly()
+    {
+        if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
+        if (InputHander.Instance != null)
+            InputHander.Instance.DisableInputs();
     }
 }

@@ -23,9 +23,10 @@ public class ShopItemData
 public class ShopManager : MonoBehaviour
 {
     [Header("NPC")]
-    [SerializeField] DialogueData npcDialogue;          // drag a DialogueData asset here for Talk
-    [SerializeField] DialogueData[] purchaseDialogues;  // drag purchase reaction DialogueData assets here
-    [SerializeField] GameObject interactPrompt;         // "Z: Talk / Shop" prompt, starts disabled
+    [SerializeField] DialogueData introDialogue;         // plays once when player first interacts
+    [SerializeField] DialogueData npcDialogue;           // drag a DialogueData asset here for Talk
+    [SerializeField] DialogueData[] purchaseDialogues;   // drag purchase reaction DialogueData assets here
+    [SerializeField] GameObject interactPrompt;          // "Z: Talk / Shop" prompt, starts disabled
 
     [Header("Player References")]
     [SerializeField] Movement movement;
@@ -35,6 +36,7 @@ public class ShopManager : MonoBehaviour
     public ShopItemData[] items;
 
     bool playerInRange;
+    bool sequenceRunning;
 
     void Awake()
     {
@@ -58,9 +60,9 @@ public class ShopManager : MonoBehaviour
 
     void Update()
     {
-        if (!playerInRange) return;
+        if (!playerInRange || sequenceRunning) return;
         if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
-            OpenShop();
+            OpenShopSequence();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -74,13 +76,28 @@ public class ShopManager : MonoBehaviour
     {
         if (!other.CompareTag("Player") && !other.transform.root.CompareTag("Player")) return;
         playerInRange = false;
+        sequenceRunning = false;
         if (interactPrompt != null) interactPrompt.SetActive(false);
     }
 
-    void OpenShop()
+    void OpenShopSequence()
     {
+        sequenceRunning = true;
         if (interactPrompt != null) interactPrompt.SetActive(false);
-        ShopUI.Instance.Open(this);
+
+        if (introDialogue != null)
+            DialogueManager.Instance.StartDialogue(introDialogue, ShowChoices);
+        else
+            ShowChoices();
+    }
+
+    void ShowChoices()
+    {
+        ShopChoiceUI.Instance.Show(
+            onUpgrade: () => { sequenceRunning = false; ShopUI.Instance.OpenItems(this); },
+            onTalk:    () => { DialogueManager.Instance.StartDialogue(npcDialogue, ShowChoices); },
+            onLeave:   () => { sequenceRunning = false; }
+        );
     }
 
     // Called by ShopUI after a successful purchase.
