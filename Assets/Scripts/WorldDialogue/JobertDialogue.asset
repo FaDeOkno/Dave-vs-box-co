@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: JobertDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: "You have got to be kidding me\u2026"
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: "This is the one time I\u2019m passionate to make something. The ONE TIME
+      and now this happens?"
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: "I wanted to make a show about a pink stickman that made an app to torture
+      the generation of stickmen that replaced her kind, but now I can\u2019t."
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: 'The AI now runs the entire team. '
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: Nobody other than the AI can decide anything anymore.
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: "It\u2019s exhausting."
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: I hope you can get rid of that clanker.
+    voice: {fileID: 0}
+  - speakerName: Jobert
+    portrait: {fileID: -6383312658857005041, guid: f7517f81448ea914b85cae23b5a3b1ab, type: 3}
+    text: "Good luck, you'll need it. \r\n"
+    voice: {fileID: 0}

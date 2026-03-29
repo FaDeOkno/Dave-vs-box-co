@@ -8,7 +8,7 @@ public class HeartUI : MonoBehaviour
 
     public Movement movement;
 
-    int HealthIndex = 4;
+    int HealthIndex = 3;
 
     public void RemoveHeart()
     {
@@ -18,13 +18,21 @@ public class HeartUI : MonoBehaviour
 
     public void AddHeart()
     {
-            HealthIndex++;
-            AliveHearts[HealthIndex].SetActive(true);
+        if (HealthIndex >= AliveHearts.Count - 1) return;
+        HealthIndex++;
+        AliveHearts[HealthIndex].SetActive(true);
+    }
+
+    public void FullHeal()
+    {
+        for (int i = 0; i < AliveHearts.Count; i++)
+            AliveHearts[i].SetActive(true);
+        HealthIndex = AliveHearts.Count - 1;
     }
 
     private void Update()
     {
-        if (HealthIndex <= 0)
+        if (HealthIndex < 0)
         {
             movement.Die();
         }

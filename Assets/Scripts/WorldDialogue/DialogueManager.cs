@@ -22,6 +22,7 @@ public class DialogueLine
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
+    public bool IsActive => dialogueActive;
 
     [Header("UI References")]
     [SerializeField] Canvas dialogueCanvas;

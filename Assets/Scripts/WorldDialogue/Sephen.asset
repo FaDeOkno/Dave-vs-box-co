@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Sephen
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerName: Sephen
+    portrait: {fileID: 3791619701116685714, guid: 1c3d4dc6552987247bafa307cb20aae3, type: 3}
+    text: 'Nice to meet you Dave, for I am Sephen, the creator of the game Mother
+      Synchrony. '
+    voice: {fileID: 0}
+  - speakerName: Sephen
+    portrait: {fileID: 3791619701116685714, guid: 1c3d4dc6552987247bafa307cb20aae3, type: 3}
+    text: ' Thank you for dealing with the AI, '
+    voice: {fileID: 0}
+  - speakerName: Sephen
+    portrait: {fileID: 3791619701116685714, guid: 1c3d4dc6552987247bafa307cb20aae3, type: 3}
+    text: ' Thank you for dealing with the AI, '
+    voice: {fileID: 0}
+  - speakerName: Sephen
+    portrait: {fileID: 3791619701116685714, guid: 1c3d4dc6552987247bafa307cb20aae3, type: 3}
+    text: for I will make games at peace!
+    voice: {fileID: 0}

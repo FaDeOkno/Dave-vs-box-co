@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Louise
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: Oh... Hey. I'm Louise. And I suppose you are the guy that has come to save
+      us.
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: Hope so.
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: I remember when I used to work at Wc.
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: Good old days of frying pieces of plastic and dealing with Karens.
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: 'Now it''s all screens and tinskins that know how to cook.
+
+      There''s
+      no space for passionate workers like me.'
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: Well... I can still make some "burgers".
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: I know they ain't the same.
+    voice: {fileID: 0}
+  - speakerName: Lousie
+    portrait: {fileID: 2238397774627458383, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: But they can put you back together.
+    voice: {fileID: 0}
