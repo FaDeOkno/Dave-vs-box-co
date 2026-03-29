@@ -13,15 +13,36 @@ MonoBehaviour:
   m_Name: ShopKeep
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - speakerName: ShopKeeper
+  - speakerName: Remy
     portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
-    text: Hello. :)
+    text: H-h-hi, Im Remy, our teams scientist.
     voice: {fileID: 0}
-  - speakerName: 'Dave '
-    portrait: {fileID: 3832789701124330145, guid: a2c40042b41736640b3e252d8fa4079b, type: 3}
-    text: Uh.. hello?
-    voice: {fileID: 0}
-  - speakerName: ShopKeeper
+  - speakerName: Remy
     portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
-    text: Wanna Buy Something?
+    text: When this A.I. took over all computer scientist went living on the streets,
+      and i was one of them.
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: B-bu-b-but I WON'T GIVE UP!!!
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: "Not for my BL\xC5HAJ. He's still waiting for me at home."
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: And I'm sure I will return to his fins.
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: "Not for my BL\xC5HAJ. He's still waiting for me at home."
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: Oh! So-so-s-sorry, i tend to yap a lot.
+    voice: {fileID: 0}
+  - speakerName: Remy
+    portrait: {fileID: -2243828726202422792, guid: edf12cf543c745c4ebe1e4cb9d3d5df7, type: 3}
+    text: An-anyways, can I give any upgrade?
     voice: {fileID: 0}

@@ -79,8 +79,15 @@ public class ShopUI : MonoBehaviour
     // Pass the row index from the buy button's OnClick UnityEvent (0-4).
     public void OnBuyItem(int index)
     {
-        currentShop.TryBuyItem(index);
-        RefreshItems();
+        if (currentShop.TryBuyItem(index))
+        {
+            Close();
+            currentShop.PlayRandomPurchaseDialogue();
+        }
+        else
+        {
+            RefreshItems();
+        }
     }
 
     // ── Internal ──────────────────────────────────────────────────

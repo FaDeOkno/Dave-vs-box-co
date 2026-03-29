@@ -23,8 +23,9 @@ public class ShopItemData
 public class ShopManager : MonoBehaviour
 {
     [Header("NPC")]
-    [SerializeField] DialogueData npcDialogue;     // drag a DialogueData asset here for Talk
-    [SerializeField] GameObject interactPrompt;    // "Z: Talk / Shop" prompt, starts disabled
+    [SerializeField] DialogueData npcDialogue;          // drag a DialogueData asset here for Talk
+    [SerializeField] DialogueData[] purchaseDialogues;  // drag purchase reaction DialogueData assets here
+    [SerializeField] GameObject interactPrompt;         // "Z: Talk / Shop" prompt, starts disabled
 
     [Header("Player References")]
     [SerializeField] Movement movement;
@@ -34,6 +35,12 @@ public class ShopManager : MonoBehaviour
     public ShopItemData[] items;
 
     bool playerInRange;
+
+    void Awake()
+    {
+        if (movement == null) movement = FindFirstObjectByType<Movement>();
+        if (heartUI == null)  heartUI  = FindFirstObjectByType<HeartUI>();
+    }
 
     // Set sensible defaults when the component is first added to a GameObject.
     void Reset()
@@ -73,6 +80,14 @@ public class ShopManager : MonoBehaviour
     {
         if (interactPrompt != null) interactPrompt.SetActive(false);
         ShopUI.Instance.Open(this);
+    }
+
+    // Called by ShopUI after a successful purchase.
+    public void PlayRandomPurchaseDialogue()
+    {
+        if (purchaseDialogues == null || purchaseDialogues.Length == 0) return;
+        int i = Random.Range(0, purchaseDialogues.Length);
+        DialogueManager.Instance.StartDialogue(purchaseDialogues[i]);
     }
 
     // Called by ShopUI's "Talk" button.
