@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 124061367}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.51, y: 4.31, z: 0.0018878602}
+  m_LocalPosition: {x: 16.51, y: 0, z: 0.0018878602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1482,7 +1482,7 @@ Transform:
   m_GameObject: {fileID: 456429055}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4332, y: -4.6882, z: 0}
+  m_LocalPosition: {x: -17.58, y: -4.6, z: 0}
   m_LocalScale: {x: 2.3026323, y: 2.6175823, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2936,6 +2936,8 @@ MonoBehaviour:
   CameraPos: {x: 0, y: 0, z: 0}
   Bound1: {fileID: 1157582474}
   Bound2: {fileID: 124061368}
+  lockY: 1
+  lockX: 1
 --- !u!1 &875418765
 GameObject:
   m_ObjectHideFlags: 0
@@ -3798,7 +3800,7 @@ Transform:
   m_GameObject: {fileID: 1157582473}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.38, y: -2.2453585, z: 0.0018878602}
+  m_LocalPosition: {x: -18.38, y: 0, z: 0.0018878602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6753,7 +6755,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopRoot: {fileID: 1397624707}
-  mainMenuPanel: {fileID: 0}
   itemsPanel: {fileID: 1217997266}
   coinText: {fileID: 712383898}
   itemRows:
