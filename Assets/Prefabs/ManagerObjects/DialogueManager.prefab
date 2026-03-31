@@ -51,3 +51,5 @@ MonoBehaviour:
   portrait: {fileID: 0}
   continueIndicator: {fileID: 0}
   typeSpeed: 0.08
+  onDialogueStart: {fileID: 11400000, guid: 7f0ac3763bee92c4d991d26dd9d7673d, type: 2}
+  onDialogueEnd: {fileID: 11400000, guid: 06eb7c662c638864eb283ea86d0de8c2, type: 2}

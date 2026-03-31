@@ -382,6 +382,9 @@ GameObject:
   - component: {fileID: 6456579106087658820}
   - component: {fileID: 6796938266849329649}
   - component: {fileID: 2778864524150779259}
+  - component: {fileID: 483511232236473821}
+  - component: {fileID: 5737465750297788774}
+  - component: {fileID: 4418646757922389634}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -826,6 +829,81 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2047
   cannonShoot: {fileID: 0}
+  onLaserHit: {fileID: 0}
+--- !u!114 &483511232236473821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505028275435500718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfdf48e0d27a4843bbeb8e3c7bbf9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 2.6
+  interactionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  onInteract: {fileID: 11400000, guid: 8c203b3300d6e7148a905bf6b1e02e08, type: 2}
+  canInteract: 1
+--- !u!114 &5737465750297788774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505028275435500718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c50fb7908fb1aa4fb900ad6e1c3c16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7f0ac3763bee92c4d991d26dd9d7673d, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 483511232236473821}
+        m_TargetAssemblyTypeName: InteractionCaller, Assembly-CSharp
+        m_MethodName: DisableInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4418646757922389634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505028275435500718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c50fb7908fb1aa4fb900ad6e1c3c16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 06eb7c662c638864eb283ea86d0de8c2, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 483511232236473821}
+        m_TargetAssemblyTypeName: InteractionCaller, Assembly-CSharp
+        m_MethodName: CooldownInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8229068891867279605
 GameObject:
   m_ObjectHideFlags: 0
