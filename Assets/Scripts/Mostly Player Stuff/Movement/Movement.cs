@@ -78,17 +78,18 @@ public partial class Movement : MonoBehaviour
 
     public IEnumerator DamageCooldown()
     {
-        if (!dontRepeatDamage)
-        {
-            dontRepeatDamage = true;
-            heartUI.RemoveHeart();
-            yield return new WaitForSeconds(damageCooldown);
-
-            Debug.Log("Damage cooldown finished");
-            dontRepeatDamage = false;
-            Debug.Log("The damage repeat bool should be false");
+        if (dontRepeatDamage)
             yield break;
-        }
+
+        dontRepeatDamage = true;
+        heartUI.RemoveHeart();
+        yield return new WaitForSeconds(damageCooldown);
+
+        Debug.Log("Damage cooldown finished");
+        dontRepeatDamage = false;
+        Debug.Log("The damage repeat bool should be false");
+        yield break;
+
     }
 
     private void Start()
