@@ -5,7 +5,7 @@ public partial class Movement
     // ── Movement ─────────────────────────────────────────────────
     [Header("Movement", order = 1)]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float midAirAcceleration = 10f;
     public Vector2 moveInput;
     public bool CanMove = true;
 
@@ -37,9 +37,14 @@ public partial class Movement
             return;
         }
 
-        else
+        else if (isGrounded)
         {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
+        }
+        else
+        {
+            rb.AddForceX(moveInput.x * midAirAcceleration, ForceMode2D.Force);
+            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -moveSpeed, moveSpeed), rb.linearVelocity.y);
         }
     }
 
