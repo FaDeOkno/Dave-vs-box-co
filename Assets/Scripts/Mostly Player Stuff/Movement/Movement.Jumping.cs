@@ -5,7 +5,6 @@ public partial class Movement
     [Header("Jump Stuff", order = 2)]
     [SerializeField] float jumpduration;
     [SerializeField] float maxjumpduration;
-    [SerializeField] Transform groundCheck;
 
     public bool isGrounded;
     public LayerMask groundLayerMask;

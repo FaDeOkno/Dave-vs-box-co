@@ -8,7 +8,6 @@ public partial class Movement
     [SerializeField] private bool isOnWall = false;
     [SerializeField] private bool canHoldWall = false;
     [SerializeField] private bool cancelWallHold = false;
-    [SerializeField] Transform wallCheck;
 
     private WallSide whichWallWasTouched = WallSide.None;
 
