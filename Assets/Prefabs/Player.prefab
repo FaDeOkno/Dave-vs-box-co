@@ -679,7 +679,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505028275435500718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -785,8 +785,8 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 1
+    numCapVertices: 1
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -813,14 +813,13 @@ MonoBehaviour:
   pullPoint: {fileID: 5379716718898258401}
   laserRenderer: {fileID: 6796938266849329649}
   SelectedMagnet: 1
-  MagCooldown: 3
+  MagCooldown: 2.25
   pullDuration: 3
   pushDuration: 0.5
-  laserWidth: 0
-  laserLength: 0
+  laserLength: 3
   laserCollisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2047
   cannonShoot: {fileID: 0}
 --- !u!1 &8229068891867279605
 GameObject:
