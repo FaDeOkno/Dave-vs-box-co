@@ -14,17 +14,17 @@ public class MagUsedUI : MonoBehaviour
 
     private void Update()
     {
-        if(movement.WhatMagnetToUse == "pull")
+        switch (movement.WhatMagnetToUse)
         {
-            UiImage.sprite = PullSpr;
-        }
-        else if(movement.WhatMagnetToUse == "push")
-        {
-            UiImage.sprite = PushSpr;
-        }
-        else if(movement.WhatMagnetToUse == "lazer")
-        {
-            UiImage.sprite = LaserSpr;
+            case Movement.MagnetType.Pull:
+                UiImage.sprite = PullSpr;
+                break;
+            case Movement.MagnetType.Push:
+                UiImage.sprite = PushSpr;
+                break;
+            case Movement.MagnetType.Lazer:
+                UiImage.sprite = LaserSpr;
+                break;
         }
     }
 }

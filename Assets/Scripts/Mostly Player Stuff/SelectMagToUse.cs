@@ -9,17 +9,17 @@ public class SelectMagToUse : MonoBehaviour
     {
         if(inputHander.Mag1Pressed())
         {
-            movement.WhatMagnetToUse = "pull";
+            movement.WhatMagnetToUse = Movement.MagnetType.Pull;
             Debug.Log("Pull Magnet activated");
         }
         else if(inputHander.Mag2Pressed())
         {
-            movement.WhatMagnetToUse = "push";
+            movement.WhatMagnetToUse = Movement.MagnetType.Push;
             Debug.Log("Push Magnet activated");
         }
         else if(inputHander.Mag3Pressed())
         {
-            movement.WhatMagnetToUse = "lazer";
+            movement.WhatMagnetToUse = Movement.MagnetType.Lazer;
             Debug.Log("Lazer Magnet activated");
         }
     }
