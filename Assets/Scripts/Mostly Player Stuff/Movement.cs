@@ -247,9 +247,15 @@ public class Movement : MonoBehaviour
             return;
         }
 
-        else
+        else if (isGrounded)
         {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
+        }
+
+        else
+        {
+            rb.AddForceX(moveInput.x * moveSpeed * 5, ForceMode2D.Force);
+            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -moveSpeed, moveSpeed), rb.linearVelocity.y);
         }
     }
 
