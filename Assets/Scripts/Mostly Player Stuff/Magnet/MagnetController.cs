@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MagnetController : MonoBehaviour
@@ -17,7 +18,6 @@ public class MagnetController : MonoBehaviour
     public float pullDuration = 3f;   // how long pull stays active
     public float pushDuration = 0.5f; // how long push stays active
 
-    [SerializeField] float laserWidth;
     [SerializeField] float laserLength;
     [SerializeField] LayerMask laserCollisionLayer;
     [SerializeField] CannonShoot cannonShoot;
@@ -26,6 +26,9 @@ public class MagnetController : MonoBehaviour
 
     private Coroutine pullRoutine;
     private Coroutine pushRoutine;
+    private bool laserFading = false;
+    private float laserStartWidth;
+    private float laserEndWidth;
 
     bool CanUseMag = true;
 
@@ -34,10 +37,11 @@ public class MagnetController : MonoBehaviour
         pushPoint.enabled = false;
         pullPoint.enabled = false;
 
+        laserStartWidth = laserRenderer.startWidth;
+        laserEndWidth = laserRenderer.endWidth;
+
         laserRenderer.positionCount = 2;
         laserRenderer.useWorldSpace = true;
-        laserRenderer.startWidth = laserWidth;
-        laserRenderer.endWidth = laserWidth;
         laserRenderer.SetPositions(new Vector3[2] { Vector3.zero, Vector3.zero });
 
         laserRenderer.enabled = false;
@@ -48,6 +52,8 @@ public class MagnetController : MonoBehaviour
         HandleSelectedMagnet();
         HandlePull();
         HandlePush();
+
+        UpdateLaser();
     }
 
     // This is the one function that houses all magnet abilities
@@ -85,7 +91,7 @@ public class MagnetController : MonoBehaviour
 
             case MagnetType.Laser:
                 //Debug.Log($"Is Facing right : {facingRight}");
-                RaycastThing(transform.right);
+                RaycastThing(transform.right * transform.localScale.x);
                 break;
         }
 
@@ -183,11 +189,31 @@ public class MagnetController : MonoBehaviour
     #endregion
 
     #region Laser
+    private void UpdateLaser()
+    {
+        if (!laserFading)
+            return;
+
+        if (laserRenderer.startWidth <= 0f && laserRenderer.endWidth <= 0f)
+        {
+            laserRenderer.startWidth = laserStartWidth;
+            laserRenderer.endWidth = laserEndWidth;
+
+            laserRenderer.enabled = false;
+            laserFading = false;
+        }
+        else
+        {
+            laserRenderer.startWidth = Mathf.Max(laserRenderer.startWidth - Time.deltaTime * 10f, 0f);
+            laserRenderer.endWidth = Mathf.Max(laserRenderer.endWidth - Time.deltaTime * 10f, 0f);
+        }
+    }
+
     // Not really a magnet but still related to it
     private void RaycastThing(Vector2 dir)
     {
         Vector2 rayOrigin = (Vector2)transform.position + dir * 0.1f;
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, dir, laserLength, ~laserCollisionLayer);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, dir, laserLength, laserCollisionLayer);
 
         Vector3 rayEnd = hit.collider != null ? (Vector3)hit.point : (Vector3)(rayOrigin + dir * laserLength);
         Debug.DrawRay(rayOrigin, rayEnd - (Vector3)rayOrigin, Color.white);
@@ -197,7 +223,7 @@ public class MagnetController : MonoBehaviour
             laserRenderer.SetPosition(0, rayOrigin);
             laserRenderer.SetPosition(1, rayEnd);
             laserRenderer.enabled = true;
-            Invoke(nameof(DisableLaserPointer), .2f);
+            laserFading = true;
         }
 
         if (hit.collider != null && hit.collider.CompareTag("cannon"))
@@ -207,11 +233,6 @@ public class MagnetController : MonoBehaviour
                 cannonShoot.AddCharge();
             }
         }
-    }
-
-    void DisableLaserPointer()
-    {
-        laserRenderer.enabled = false;
     }
     #endregion
 
@@ -234,12 +255,13 @@ public class MagnetController : MonoBehaviour
     // Called by the shop to widen + lengthen the laser.
     public void UpgradeLaser()
     {
-        laserWidth *= 1.5f;
+        laserStartWidth *= 1.5f;
+        laserEndWidth *= 1.5f;
         laserLength *= 1.5f;
         if (laserRenderer != null)
         {
-            laserRenderer.startWidth = laserWidth;
-            laserRenderer.endWidth = laserWidth;
+            laserRenderer.startWidth = laserStartWidth;
+            laserRenderer.endWidth = laserEndWidth;
         }
     }
 
