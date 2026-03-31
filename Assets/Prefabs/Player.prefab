@@ -487,12 +487,17 @@ MonoBehaviour:
   DashCooldownNum: 0.5
   jumpduration: 0
   maxjumpduration: 0
+  jumpForce: 9
   isGrounded: 0
+  allowJump: 1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
+  groundNoJumpLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   moveSpeed: 5
-  jumpForce: 9
+  midAirAcceleration: 24
   moveInput: {x: 0, y: 0}
   CanMove: 1
   wallJumpForce: 9

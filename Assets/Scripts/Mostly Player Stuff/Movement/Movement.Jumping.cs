@@ -5,9 +5,12 @@ public partial class Movement
     [Header("Jump Stuff", order = 2)]
     [SerializeField] float jumpduration;
     [SerializeField] float maxjumpduration;
+    [SerializeField] private float jumpForce = 10f;
 
     public bool isGrounded;
+    public bool allowJump = true;
     public LayerMask groundLayerMask;
+    public LayerMask groundNoJumpLayerMask;
     private bool usedDoubleJump = false;
 
     private void HandleJump()
@@ -15,7 +18,7 @@ public partial class Movement
         if (!inputHander.JumpPressed())
             return;
 
-        if (isGrounded)
+        if (isGrounded && allowJump)
         {
             usedDoubleJump = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -28,7 +31,7 @@ public partial class Movement
             return;
         }
 
-        if (hasDoubleJump && !usedDoubleJump)
+        if (hasDoubleJump && !usedDoubleJump && allowJump)
         {
             usedDoubleJump = true;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
@@ -41,6 +44,7 @@ public partial class Movement
         var rayOrigin = (Vector2)transform.position + Collider.offset + Vector2.down * (Collider.size.y / 2);
 
         isGrounded = Physics2D.Raycast(rayOrigin, Vector2.down, 0.1f, groundLayerMask);
+        allowJump = !Physics2D.Raycast(rayOrigin, Vector2.down, 0.1f, groundNoJumpLayerMask);
 
         if (isGrounded)
         {
