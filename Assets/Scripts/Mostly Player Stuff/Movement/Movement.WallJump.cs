@@ -22,6 +22,7 @@ public partial class Movement
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(horizontalDir * wallJumpForce, ForceMode2D.Impulse);
         rb.AddForce(Vector2.up * wallJumpForce, ForceMode2D.Impulse);
+        Flip();
 
         useInputs = false;
         Invoke(nameof(EnableInputs), 0.2f);
