@@ -1367,7 +1367,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 74983e482c2c1c745a54f5ad8a60645b, type: 2}
   - {fileID: 11400000, guid: 789255cbd2f4fe340b0df13e22871bd0, type: 2}
   interactPrompt: {fileID: 0}
-  movement: {fileID: 0}
+  movement: {fileID: 1289143748}
+  magnet: {fileID: 1289143754}
   heartUI: {fileID: 1873644437}
   items:
   - itemName: Double Jump
@@ -2970,8 +2971,8 @@ MonoBehaviour:
   CameraPos: {x: 0, y: 0, z: 0}
   Bound1: {fileID: 1157582474}
   Bound2: {fileID: 124061368}
-  lockY: 1
-  lockX: 1
+  lockY: 0
+  lockX: 0
 --- !u!1 &875418765
 GameObject:
   m_ObjectHideFlags: 0
@@ -4427,6 +4428,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c4747812ccb45178d7bb3b984c8d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1289143754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2778864524150779259, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
+  m_PrefabInstance: {fileID: 285070481}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f849d0761c9488689e34826f38cf03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1304104909
 GameObject:
   m_ObjectHideFlags: 0
@@ -4972,17 +4984,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1358453460 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1973514584151813711, guid: 4f4fed935d8adc749a2d500d35fa8bb3, type: 3}
-  m_PrefabInstance: {fileID: 285070481}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f849d0761c9488689e34826f38cf03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1375596855
 GameObject:
   m_ObjectHideFlags: 0
@@ -9328,7 +9329,7 @@ PrefabInstance:
     - target: {fileID: 1792692985731366819, guid: 7cba1fe7a8309414ab34e95c5aaa74b0, type: 3}
       propertyPath: magnet
       value: 
-      objectReference: {fileID: 1358453460}
+      objectReference: {fileID: 0}
     - target: {fileID: 3171356008914952616, guid: 7cba1fe7a8309414ab34e95c5aaa74b0, type: 3}
       propertyPath: m_Name
       value: Example Physics Object But Bigger
