@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class Movement
 {
@@ -16,9 +17,12 @@ public partial class Movement
     private bool isQuickDashing = false;
     bool CanDash = true;
 
-    public void HandleQuickDash()
+    public void HandleQuickDash(InputAction.CallbackContext context)
     {
-        if (!inputHander.QuickDashPressed())
+        if (!context.performed)
+            return;
+
+        if (InputBlocker.IsBlocked)
             return;
 
         if (!hasDash)

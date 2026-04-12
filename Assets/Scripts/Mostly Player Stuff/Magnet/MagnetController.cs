@@ -1,11 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MagnetController : MonoBehaviour
 {
     [Header("References")]
-    public InputHander inputHander;
     [SerializeField] PointEffector2D pushPoint;
     [SerializeField] PointEffector2D pullPoint;
     [SerializeField] LineRenderer laserRenderer;
@@ -52,53 +51,7 @@ public class MagnetController : MonoBehaviour
 
     private void Update()
     {
-        HandleSelectedMagnet();
-        HandlePull();
-        HandlePush();
-
         UpdateLaser();
-    }
-
-    // This is the one function that houses all magnet abilities
-    public void HandleSelectedMagnet()
-    {
-        if (inputHander == null || !inputHander.MagnetButPressed())
-            return;
-
-        if (activeMagnet != MagnetType.None)
-        {
-            StopMagnets();
-            return;
-        }
-
-        // Immediately block further uses so holding the button doesn't restart cooldowns
-        if (!CanUseMag)
-            return;
-
-        CanUseMag = false;
-        Debug.Log(SelectedMagnet);
-
-        switch (SelectedMagnet)
-        {
-            case MagnetType.Pull:
-                activeMagnet = MagnetType.Pull;
-                pullPoint.enabled = true;
-                pullRoutine = StartCoroutine(PullTimer());
-                break;
-
-            case MagnetType.Push:
-                activeMagnet = MagnetType.Pull;
-                pushPoint.enabled = true;
-                pushRoutine = StartCoroutine(PushTimer());
-                break;
-
-            case MagnetType.Laser:
-                //Debug.Log($"Is Facing right : {facingRight}");
-                RaycastThing(transform.right * transform.localScale.x);
-                break;
-        }
-
-        Invoke(nameof(ResetMagnet), MagCooldown);
     }
 
     public void StopMagnets()
@@ -122,25 +75,6 @@ public class MagnetController : MonoBehaviour
     }
 
     #region Pull
-    public void HandlePull()
-    {
-        if (!inputHander.PullObjPressed()) return;
-
-        if (activeMagnet != MagnetType.Pull)
-        {
-            StopMagnets();
-            activeMagnet = MagnetType.Pull;
-            pullPoint.enabled = true;
-            pullRoutine = StartCoroutine(PullTimer());
-        }
-        else
-        {
-            // Cancel early (toggle off)
-            StopCoroutine(pullRoutine);
-            EndPull();
-        }
-    }
-
     private IEnumerator PullTimer()
     {
         yield return new WaitForSeconds(pullDuration);
@@ -156,27 +90,6 @@ public class MagnetController : MonoBehaviour
     #endregion
 
     #region Push
-    //  Same pattern: first press activates for pushDuration,
-    //  second press cancels early.
-    public void HandlePush()
-    {
-        if (!inputHander.PushObjPressed())
-            return;
-
-        if (activeMagnet != MagnetType.Push)
-        {
-            StopMagnets();
-            activeMagnet = MagnetType.Push;
-            pushPoint.enabled = true;
-            pushRoutine = StartCoroutine(PushTimer());
-        }
-        else
-        {
-            StopCoroutine(pushRoutine);
-            EndPush();
-        }
-    }
-
     private IEnumerator PushTimer()
     {
         yield return new WaitForSeconds(pushDuration);
@@ -267,6 +180,86 @@ public class MagnetController : MonoBehaviour
             laserRenderer.endWidth = laserEndWidth;
         }
     }
+
+    #region Input
+    // This is the one function that houses all magnet abilities
+    public void OnMagnetUse(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        if (InputBlocker.IsBlocked)
+            return;
+
+        if (activeMagnet != MagnetType.None)
+        {
+            StopMagnets();
+            return;
+        }
+
+        // Immediately block further uses so holding the button doesn't restart cooldowns
+        if (!CanUseMag)
+            return;
+
+        CanUseMag = false;
+        Debug.Log(SelectedMagnet);
+
+        switch (SelectedMagnet)
+        {
+            case MagnetType.Pull:
+                activeMagnet = MagnetType.Pull;
+                pullPoint.enabled = true;
+                pullRoutine = StartCoroutine(PullTimer());
+                break;
+
+            case MagnetType.Push:
+                activeMagnet = MagnetType.Pull;
+                pushPoint.enabled = true;
+                pushRoutine = StartCoroutine(PushTimer());
+                break;
+
+            case MagnetType.Laser:
+                //Debug.Log($"Is Facing right : {facingRight}");
+                RaycastThing(transform.right * transform.localScale.x);
+                break;
+        }
+
+        Invoke(nameof(ResetMagnet), MagCooldown);
+    }
+
+    public void OnPullSelected(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        if (InputBlocker.IsBlocked)
+            return;
+
+        SelectedMagnet = MagnetType.Pull;
+    }
+
+    public void OnPushSelected(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        if (InputBlocker.IsBlocked)
+            return;
+
+        SelectedMagnet = MagnetType.Push;
+    }
+
+    public void OnLaserSelected(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        if (InputBlocker.IsBlocked)
+            return;
+
+        SelectedMagnet = MagnetType.Laser;
+    }
+    #endregion
 
     [System.Serializable]
     public enum MagnetType

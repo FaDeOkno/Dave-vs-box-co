@@ -24,6 +24,11 @@ public class ShopUI : MonoBehaviour
         shopRoot.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        InputBlocker.Blockers.Remove(this);
+    }
+
     public void OpenItems(ShopManager shop)
     {
         currentShop = shop;
@@ -31,13 +36,13 @@ public class ShopUI : MonoBehaviour
         itemsPanel.SetActive(true);
         UpdateCoinDisplay();
         RefreshItems();
-        InputHander.Instance.DisableInputs();
+        InputBlocker.Blockers.Add(this);
     }
 
     public void Close()
     {
         shopRoot.SetActive(false);
-        InputHander.Instance.EnableInputs();
+        InputBlocker.Blockers.Remove(this);
     }
 
     public void OnBackPressed() => Close();

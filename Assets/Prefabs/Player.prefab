@@ -376,10 +376,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6110312253690498842}
   - component: {fileID: 5924957932762235289}
+  - component: {fileID: 4459327889573514658}
   - component: {fileID: 7440244137984001522}
-  - component: {fileID: 4101312267376005133}
   - component: {fileID: 2268354899508711755}
-  - component: {fileID: 6456579106087658820}
   - component: {fileID: 6796938266849329649}
   - component: {fileID: 2778864524150779259}
   - component: {fileID: 483511232236473821}
@@ -457,6 +456,220 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.27150464, y: 1.1296428}
   m_EdgeRadius: 0
+--- !u!114 &4459327889573514658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505028275435500718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7440244137984001522}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: GatherMoveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
+    m_ActionName: 'Player/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 483511232236473821}
+        m_TargetAssemblyTypeName: InteractionCaller, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
+    m_ActionName: 'Player/Interact[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7440244137984001522}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: HandleJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
+    m_ActionName: 'Player/Jump[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7440244137984001522}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: OnWallHold
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 47b0508b-45a0-4661-ab08-776eac9b7731
+    m_ActionName: 'Player/Hold On Wall[/Keyboard/ctrl]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7440244137984001522}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: HandleQuickDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8034a78c-2f55-4aba-941e-04e909229997
+    m_ActionName: 'Player/Quick Dash[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2778864524150779259}
+        m_TargetAssemblyTypeName: MagnetController, Assembly-CSharp
+        m_MethodName: OnPullSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ac76ef6a-b8ce-44bb-b163-3f5773f6afb5
+    m_ActionName: 'Player/PullMag[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2778864524150779259}
+        m_TargetAssemblyTypeName: MagnetController, Assembly-CSharp
+        m_MethodName: OnPushSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5595162c-0d95-430a-bf4f-62af60a509d9
+    m_ActionName: 'Player/PushMag[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2778864524150779259}
+        m_TargetAssemblyTypeName: MagnetController, Assembly-CSharp
+        m_MethodName: OnLaserSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f083fc73-4fb5-442f-af31-5a3dd657dcfb
+    m_ActionName: 'Player/LazerMag[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2778864524150779259}
+        m_TargetAssemblyTypeName: MagnetController, Assembly-CSharp
+        m_MethodName: OnMagnetUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1c3c6fd0-80c0-4c8b-bcb8-b6cf8c9ec5e9
+    m_ActionName: 'Player/UseMag[/Keyboard/v,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
+    m_ActionName: 'UI/Point[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dad70c86-b58c-4b17-88ad-f5e53adf419e
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &7440244137984001522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,13 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c4747812ccb45178d7bb3b984c8d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHander: {fileID: 4101312267376005133}
-  spriteRenderer: {fileID: 9109031693881962294}
-  player: {fileID: 2505028275435500718}
   heartUI: {fileID: 0}
-  DamageLayer:
-    serializedVersion: 2
-    m_Bits: 0
   rb: {fileID: 2268354899508711755}
   Collider: {fileID: 5924957932762235289}
   hasDoubleJump: 0
@@ -507,138 +714,6 @@ MonoBehaviour:
   isOnWall: 0
   canHoldWall: 1
   cancelWallHold: 0
---- !u!114 &4101312267376005133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505028275435500718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2544a651972c56459810375d1dd43ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Horizontal:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Horizontal
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 39a53654-486a-43cc-a3f2-da0aa5447107
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  Jump:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Jump
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: a0326292-777d-426e-95fa-f38f5fb043ec
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  WallHold:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Wall Hold
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: b22afad3-33f6-47b8-b4f1-aca11817abe7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1309468519495745252, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  PullObj:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Pull Obj
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 56ba1696-53e2-4874-b208-636d075c5063
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  PushObj:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Push Obj
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 62690dbb-b158-4ab0-9d0e-8dbba5a2a447
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  QuickDash:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Quick Dash
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 267ba06c-be28-4ba5-8a63-b7e783bf061d
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 2989600345786705403, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  MagnetBut:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Magnet But
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: f7c08134-7619-423f-87e7-bb6fd6cb5abf
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2425175744383593152, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  Magnet1:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Magnet 1
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: d3fa13da-83d3-4443-b4d0-11c56c725c04
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4430191358056088887, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  Magnet2:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Magnet 2
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8f65c96b-6300-496b-8328-b796c641559b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -5682991663578611607, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  Magnet3:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Magnet 3
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 08f47527-ae2d-40c9-a03f-2af1a55a2df1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -907435992953490765, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!50 &2268354899508711755
 Rigidbody2D:
   serializedVersion: 5
@@ -666,19 +741,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6456579106087658820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505028275435500718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 654c31b51f871499da4dfa7a6bd3806a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputHander: {fileID: 4101312267376005133}
 --- !u!120 &6796938266849329649
 LineRenderer:
   serializedVersion: 2
@@ -816,7 +878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f849d0761c9488689e34826f38cf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHander: {fileID: 4101312267376005133}
   pushPoint: {fileID: 1456732750055200830}
   pullPoint: {fileID: 5379716718898258401}
   laserRenderer: {fileID: 6796938266849329649}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class Movement
 {
@@ -13,9 +14,12 @@ public partial class Movement
     public LayerMask groundNoJumpLayerMask;
     private bool usedDoubleJump = false;
 
-    private void HandleJump()
+    public void HandleJump(InputAction.CallbackContext context)
     {
-        if (!inputHander.JumpPressed())
+        if (!context.performed || context.canceled)
+            return;
+
+        if (InputBlocker.IsBlocked)
             return;
 
         if (isGrounded && allowJump)

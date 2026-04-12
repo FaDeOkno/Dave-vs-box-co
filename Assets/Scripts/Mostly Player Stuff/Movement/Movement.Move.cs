@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class Movement
 {
@@ -9,10 +10,12 @@ public partial class Movement
     public Vector2 moveInput;
     public bool CanMove = true;
 
-    private void GatherMoveInput()
+    public void GatherMoveInput(InputAction.CallbackContext context)
     {
-        if (CanMove && !isOnWall)
-            moveInput = inputHander.GetHorizontalInput();
+        if (!CanMove || isOnWall || InputBlocker.IsBlocked)
+            moveInput = Vector2.zero;
+        else
+            moveInput = context.ReadValue<Vector2>();
     }
 
     private void UpdateMovement()

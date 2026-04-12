@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class Movement
 {
@@ -10,6 +11,7 @@ public partial class Movement
     [SerializeField] private bool cancelWallHold = false;
 
     private WallSide whichWallWasTouched = WallSide.None;
+    private bool isWallHolding = false;
 
     private void WallJump(Vector2 horizontalDir)
     {
@@ -36,12 +38,12 @@ public partial class Movement
 
     // ── Wall Hold Helpers ─────────────────────────────────────────
 
-    private bool CanHoldWall()
+    public void OnWallHold(InputAction.CallbackContext context)
     {
-        // InputHander drives the wall-hold button check
-        bool holdPressed = inputHander != null && inputHander.WallHoldPressed();
-
-        return holdPressed && !cancelWallHold;
+        if (context.performed && !InputBlocker.IsBlocked)
+            isWallHolding = true;
+        else
+            isWallHolding = false;
     }
 
     private void HandleGravity()
@@ -51,7 +53,7 @@ public partial class Movement
 
     private void UpdateWallHold()
     {
-        canHoldWall = CanHoldWall();
+        canHoldWall = isWallHolding && !cancelWallHold;
 
         var facingDir = facingRight ? Vector2.right : Vector2.left;
         var rayOrigin = (Vector2)transform.position + (facingDir * Collider.size.x / 2) + (facingRight ? Collider.offset : -Collider.offset);

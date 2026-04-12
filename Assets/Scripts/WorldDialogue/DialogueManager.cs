@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewDialogue", menuName = "Dialogue/Dialogue Data")]
@@ -59,6 +60,11 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        InputBlocker.Blockers.Remove(this);
+    }
+
     void Update()
     {
         if (!dialogueActive) return;
@@ -91,8 +97,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
         dialoguePanel.SetActive(true);
 
-        if (InputHander.Instance != null)
-            InputHander.Instance.DisableInputs();
+        InputBlocker.Blockers.Add(this);
 
         onDialogueStart.Raise(this, null);
         ShowLine(currentLine);
@@ -176,14 +181,12 @@ public class DialogueManager : MonoBehaviour
     {
         dialoguePanel.SetActive(false);
         if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(false);
-        if (InputHander.Instance != null)
-            InputHander.Instance.EnableInputs();
+        InputBlocker.Blockers.Remove(this);
     }
 
     public void OpenCanvasOnly()
     {
         if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
-        if (InputHander.Instance != null)
-            InputHander.Instance.DisableInputs();
+        InputBlocker.Blockers.Add(this);
     }
 }

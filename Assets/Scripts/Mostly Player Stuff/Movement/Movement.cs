@@ -7,13 +7,9 @@ public partial class Movement : MonoBehaviour
 {
     // ── References ──────────────────────────────────────────────
     [Header("References", order = 0)]
-    public InputHander inputHander;
-    public SpriteRenderer spriteRenderer;
-    public GameObject player;
     public HeartUI heartUI;
-    public LayerMask DamageLayer;
     public Rigidbody2D rb;
-    [SerializeField] BoxCollider2D Collider;
+    [SerializeField] private BoxCollider2D Collider;
 
     // ── Animation / Facing ────────────────────────────────────────
     private Animator anim;
@@ -60,40 +56,18 @@ public partial class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        //Physics2D.IgnoreCollision(PlayerCollider, handLCollider, true);
-        //Physics2D.IgnoreCollision(PlayerCollider, handRCollider, true);
-
-        // foreach (Collider2D col in playerColliders)
-        // {
-        //     Physics2D.IgnoreCollision(col, handLCollider, true);
-        //     Physics2D.IgnoreCollision(col, handRCollider, true);
-        // }
-
     }
 
     private void Update()
     {
         UpdateGrounded();
-
-        GetInputs();
-
-        UpdateWallHold();
-    }
-
-    private void GetInputs()
-    {
-        GatherMoveInput();
-        HandleQuickDash();
         HandleFlip();
-
-        UpdateWallHold();
-        HandleJump();
     }
 
     private void FixedUpdate()
     {
         UpdateGrounded();
+        UpdateWallHold();
         HandleGravity();
 
         UpdateMovement();
